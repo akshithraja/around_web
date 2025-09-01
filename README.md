@@ -42,28 +42,36 @@ around-web/
 ### Local Development
 
 1. **Clone/Download** the project files
-2. **Add Images**: Replace placeholder images in `assets/images/`:
-   - `aroundlogo.png` - Company logo
-   - `atheev.jpg` - CEO photo
-   - `akshith.jpg` - CTO photo
-   - `vishnu.jpg` - Design Head photo
-3. **Open** `index.html` in your browser or use a local server
-4. **Customize** content, colors, and styling as needed
+   ```bash
+   git clone https://github.com/akshithraja/around_web.git
+   cd around_web
+   ```
 
-### Using a Local Server (Recommended)
+2. **Start Local Server** (choose one method):
 
-```bash
-# Using Python 3
-python -m http.server 8000
+   **Python 3 (Recommended):**
+   ```bash
+   python3 -m http.server 8000
+   # OR on older systems:
+   python -m http.server 8000
+   ```
 
-# Using Node.js (if you have http-server installed)
-npx http-server
+   **Node.js:**
+   ```bash
+   npx http-server -p 8000
+   ```
 
-# Using PHP
-php -S localhost:8000
-```
+   **PHP:**
+   ```bash
+   php -S localhost:8000
+   ```
 
-Then visit `http://localhost:8000`
+3. **Open in Browser**: Visit `http://localhost:8000`
+
+4. **That's it!** The website will load with all effects working.
+
+### Alternative: Direct File Opening
+You can also directly open `index.html` in your browser, but some features work better with a local server.
 
 ## 🌐 Deployment to GitHub Pages
 
