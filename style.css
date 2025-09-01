@@ -1,0 +1,144 @@
+/* Ultra-Modern Monochrome Theme */
+:root {
+  /* Monochrome Palette */
+  --black: #000000;
+  --black-light: #0a0a0a;
+  --gray-900: #111111;
+  --gray-800: #1a1a1a;
+  --gray-700: #2a2a2a;
+  --gray-600: #404040;
+  --gray-500: #666666;
+  --gray-400: #888888;
+  --gray-300: #aaaaaa;
+  --gray-200: #cccccc;
+  --gray-100: #e5e5e5;
+  --gray-50: #f5f5f5;
+  --white: #ffffff;
+  --off-white: #fafafa;
+  
+  /* Brand colors inspired by logo */
+  --brand-pink: #f5e6e8;
+  --brand-pink-light: #faf5f6;
+  
+  /* Backgrounds */
+  --background: var(--off-white);
+  --background-dark: var(--gray-900);
+  --background-gradient: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%);
+  
+  /* Text colors */
+  --foreground: var(--gray-900);
+  --foreground-light: var(--gray-700);
+  --foreground-muted: var(--gray-500);
+  --foreground-subtle: var(--gray-400);
+  
+  /* Glass card styles */
+  --glass-card: rgba(255, 255, 255, 0.8);
+  --glass-card-hover: rgba(255, 255, 255, 0.9);
+  --glass-card-dark: rgba(17, 17, 17, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-border-dark: rgba(255, 255, 255, 0.1);
+  
+  /* Accent colors */
+  --accent: var(--black);
+  --accent-foreground: var(--white);
+  --accent-light: var(--gray-800);
+  --accent-subtle: var(--brand-pink);
+  
+  /* Interactive states */
+  --hover: var(--gray-100);
+  --active: var(--gray-200);
+  --focus: var(--black);
+  
+  /* Button styles */
+  --btn-secondary-bg: var(--black);
+  --btn-secondary-text: var(--white);
+  --btn-secondary-border: var(--black);
+  --btn-secondary-hover-bg: var(--gray-800);
+  
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  
+  /* Spacing */
+  --radius: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.16);
+  
+  /* Glass blur effects */
+  --blur: blur(20px);
+  --blur-lg: blur(40px);
+  
+  /* Transitions */
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: var(--gray-900);
+    --foreground: var(--gray-100);
+    --foreground-light: var(--gray-200);
+    --foreground-muted: var(--gray-400);
+    
+    --glass-card: rgba(17, 17, 17, 0.8);
+    --glass-card-hover: rgba(26, 26, 26, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    
+    --accent: var(--white);
+    --accent-foreground: var(--black);
+    --accent-light: var(--gray-200);
+  }
+}
+
+body {
+  font-family: var(--font-sans) !important;
+  background: var(--background) !important;
+  color: var(--foreground) !important;
+  line-height: 1.6 !important;
+}
+
+/* Features Section - White Background */
+#features {
+  background: var(--white) !important;
+  position: relative !important;
+}
+
+/* Team Section - White Background */
+#team {
+  background: var(--white) !important;
+  position: relative !important;
+}
+
+/* Contact Section - Glassy White Background */
+#contact {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(40px) !important;
+  -webkit-backdrop-filter: blur(40px) !important;
+  position: relative !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Enhanced Glass morphism effects */
+.glass {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(40px) !important;
+  -webkit-backdrop-filter: blur(40px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
+}
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 1.0) !important;
+  border: 2px solid rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}

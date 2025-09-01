@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>around. - Discover What's Around You</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        * {
+            box-sizing: border-box !important;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%) !important;
+            font-family: 'Inter', sans-serif !important;
+            color: #111111 !important;
+        }
+        
+        /* Enhanced Glass morphism effects */
+        .glass {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(40px) !important;
+            -webkit-backdrop-filter: blur(40px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.4) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
+        }
+        
+        /* Enhanced navigation glass */
+        nav {
+            z-index: 9999 !important;
+            background: rgba(255, 255, 255, 0.15) !important;
+            backdrop-filter: blur(40px) !important;
+            -webkit-backdrop-filter: blur(40px) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+        }
+        
+        /* Highlighted navigation elements */
+        .nav-logo {
+            background: rgba(255, 255, 255, 0.9) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border-radius: 12px !important;
+            padding: 8px 16px !important;
+            border: 1px solid rgba(0, 0, 0, 0.1) !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .nav-cta-highlight {
+            background: rgba(255, 255, 255, 0.9) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border-radius: 8px !important;
+            padding: 2px !important;
+            border: 1px solid rgba(0, 0, 0, 0.1) !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .nav-link-frosted {
+            color: rgba(17, 17, 17, 0.6) !important;
+            font-weight: 400 !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .nav-link-frosted:hover {
+            color: rgba(17, 17, 17, 0.9) !important;
+            background: rgba(255, 255, 255, 0.3) !important;
+            backdrop-filter: blur(10px) !important;
+        }
+        
+        .glass-dark {
+            background: rgba(17, 17, 17, 0.8) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        .glass-hover:hover {
+            background: rgba(255, 255, 255, 1.0) !important;
+            border: 2px solid rgba(0, 0, 0, 0.15) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+        
+        /* Button styles */
+        .btn-primary {
+            background: #000000 !important;
+            color: #ffffff !important;
+            border: none !important;
+            font-weight: 500 !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .btn-primary:hover {
+            background: #1a1a1a !important;
+            transform: translateY(-1px) !important;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+        }
+        
+        .btn-secondary {
+            background: #000000 !important;
+            color: #ffffff !important;
+            border: 1px solid #000000 !important;
+            font-weight: 500 !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .btn-secondary:hover {
+            background: #1a1a1a !important;
+            border-color: #1a1a1a !important;
+            transform: translateY(-1px) !important;
+        }
+        
+        /* White rectangular backgrounds for sections */
+        #features {
+            background: #ffffff !important;
+            position: relative !important;
+        }
+        
+        #team {
+            background: #ffffff !important;
+            position: relative !important;
+        }
+        
+        /* Contact Section - Glassy White Background */
+        #contact {
+            background: rgba(255, 255, 255, 0.85) !important;
+            backdrop-filter: blur(40px) !important;
+            -webkit-backdrop-filter: blur(40px) !important;
+            position: relative !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+        }
+        
+        /* Logo circular design inspired by brand */
+        .logo-circle {
+            width: 40px !important;
+            height: 40px !important;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%) !important;
+            border-radius: 12px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            position: relative !important;
+        }
+        
+        .logo-circle::after {
+            content: '' !important;
+            position: absolute !important;
+            width: 20px !important;
+            height: 20px !important;
+            border-radius: 50% !important;
+            border: 2px solid rgba(245, 230, 232, 0.9) !important;
+            background: transparent !important;
+        }
+        
+        /* Floating elements inspired by circular theme */
+        .floating-circles {
+            position: absolute !important;
+            width: 100% !important;
+            height: 100% !important;
+            overflow: hidden !important;
+            pointer-events: none !important;
+        }
+        
+        .floating-circles::before,
+        .floating-circles::after {
+            content: '' !important;
+            position: absolute !important;
+            border-radius: 50% !important;
+            animation: float-gentle 8s ease-in-out infinite !important;
+        }
+        
+        .floating-circles::before {
+            width: 300px !important;
+            height: 300px !important;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.02) 0%, transparent 70%) !important;
+            top: 10% !important;
+            right: -10% !important;
+            animation-delay: 0s !important;
+        }
+        
+        .floating-circles::after {
+            width: 200px !important;
+            height: 200px !important;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.03) 0%, transparent 70%) !important;
+            bottom: 20% !important;
+            left: -5% !important;
+            animation-delay: -4s !important;
+        }
+        
+        @keyframes float-gentle {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(2deg); }
+        }
+        
+        /* Typography */
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 6rem) !important;
+            font-weight: 800 !important;
+            line-height: 1.1 !important;
+            letter-spacing: -0.02em !important;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #111111 0%, #666666 100%) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+        }
+        
+        /* Feature cards with circular accents */
+        .feature-icon {
+            width: 60px !important;
+            height: 60px !important;
+            background: rgba(0, 0, 0, 0.05) !important;
+            border-radius: 50% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            position: relative !important;
+        }
+        
+        .feature-icon::after {
+            content: '' !important;
+            position: absolute !important;
+            width: 30px !important;
+            height: 30px !important;
+            border-radius: 50% !important;
+            border: 1px solid rgba(0, 0, 0, 0.1) !important;
+            background: transparent !important;
+        }
+        
+        /* Minimal grid pattern */
+        .grid-pattern {
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px) !important;
+            background-size: 50px 50px !important;
+        }
+        
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth !important;
+        }
+        
+        /* Focus states */
+        .focus-visible:focus-visible {
+            outline: 2px solid #000000 !important;
+            outline-offset: 2px !important;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden grid-pattern">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/20 backdrop-blur-2xl border-b border-white/30">
+        <div class="mx-4 mt-4 mb-2 px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="logo-circle">
+                        <!-- Logo inspired by the circular design -->
+                    </div>
+                    <span class="text-xl font-semibold tracking-tight text-gray-900">around.</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-2">
+                    <a href="#features" class="nav-link-frosted px-4 py-2 rounded-lg text-sm">Features</a>
+                    <a href="#team" class="nav-link-frosted px-4 py-2 rounded-lg text-sm">Team</a>
+                    <div class="nav-cta-highlight">
+                        <a href="#contact" class="btn-primary px-4 py-2 rounded-lg text-sm">Get Started</a>
+                    </div>
+                </div>
+                
+                <div class="md:hidden nav-cta-highlight">
+                    <button class="p-2 rounded-lg">
+                        <i data-lucide="menu" class="w-5 h-5 text-gray-700"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-28 pb-16 px-4">
+        <div class="floating-circles"></div>
+        
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="glass inline-block px-4 py-2 rounded-full mb-8">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-pulse"></div>
+                            <span class="text-sm font-medium text-gray-600">Now under Development</span>
+                        </div>
+                    </div>
+                    
+                    <h1 class="hero-title mb-8 text-gray-900">
+                        <span class="block">Discover</span>
+                        <span class="block">What's</span>
+                        <span class="block text-gradient">Around You</span>
+                    </h1>
+                    
+                    <p class="text-xl md:text-2xl mb-12 leading-relaxed text-gray-600 max-w-2xl">
+                        See what's happening around you — in real time. From hidden gems to local events, discover your city through verified insights from people on the ground.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 mb-16">
+                        <div class="px-8 py-4 text-lg font-medium flex items-center justify-center space-x-2 text-gray-600">
+                            <i data-lucide="clock" class="w-5 h-5"></i>
+                            <span>Coming Soon</span>
+                        </div>
+                        <a href="#contact" class="btn-secondary px-8 py-4 rounded-2xl text-lg font-medium flex items-center justify-center space-x-2">
+                            <i data-lucide="users" class="w-5 h-5"></i>
+                            <span>Interested?</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Trust indicators -->
+                    <div class="flex items-center space-x-8 text-sm text-gray-500">
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="shield-check" class="w-4 h-4"></i>
+                            <span>Verified users only</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="map-pin" class="w-4 h-4"></i>
+                            <span>Location-first</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <!-- Hero illustration inspired by circular logo -->
+                    <div class="glass glass-hover rounded-3xl p-12 relative">
+                        <div class="aspect-square bg-gradient-to-br from-gray-50 to-white rounded-2xl flex items-center justify-center relative overflow-hidden">
+                            <!-- Map Background Pattern -->
+                            <div class="absolute inset-0 opacity-20">
+                                <!-- Street grid pattern -->
+                                <div class="absolute inset-4 bg-gray-200">
+                                    <!-- Vertical streets -->
+                                    <div class="absolute left-1/4 top-0 bottom-0 w-1 bg-white"></div>
+                                    <div class="absolute left-2/4 top-0 bottom-0 w-1 bg-white"></div>
+                                    <div class="absolute left-3/4 top-0 bottom-0 w-1 bg-white"></div>
+                                    <!-- Horizontal streets -->
+                                    <div class="absolute top-1/4 left-0 right-0 h-1 bg-white"></div>
+                                    <div class="absolute top-2/4 left-0 right-0 h-1 bg-white"></div>
+                                    <div class="absolute top-3/4 left-0 right-0 h-1 bg-white"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Store Pins with Offers -->
+                            <div class="relative z-10 w-full h-full">
+                                <!-- Coffee Shop with 20% off -->
+                                <div class="absolute top-1/4 left-1/3 group">
+                                    <div class="relative">
+                                        <i data-lucide="map-pin" class="w-6 h-6 text-red-500"></i>
+                                        <div class="absolute -top-8 -left-8 bg-red-500 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                            ☕ 20% off coffee
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Restaurant with happy hour -->
+                                <div class="absolute top-2/3 left-1/2 group">
+                                    <div class="relative">
+                                        <i data-lucide="map-pin" class="w-6 h-6 text-orange-500"></i>
+                                        <div class="absolute -top-8 -left-10 bg-orange-500 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                            🍕 Happy hour 4-6pm
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Gym with free trial -->
+                                <div class="absolute top-1/2 left-1/4 group">
+                                    <div class="relative">
+                                        <i data-lucide="map-pin" class="w-6 h-6 text-blue-500"></i>
+                                        <div class="absolute -top-8 -left-8 bg-blue-500 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                            💪 Free trial week
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Bookstore event -->
+                                <div class="absolute top-1/3 right-1/3 group">
+                                    <div class="relative">
+                                        <i data-lucide="map-pin" class="w-6 h-6 text-green-500"></i>
+                                        <div class="absolute -top-8 -left-8 bg-green-500 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                            📚 Author event 7pm
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Pharmacy discount -->
+                                <div class="absolute bottom-1/4 right-1/4 group">
+                                    <div class="relative">
+                                        <i data-lucide="map-pin" class="w-6 h-6 text-purple-500"></i>
+                                        <div class="absolute -top-8 -left-8 bg-purple-500 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                            💊 10% off vitamins
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Your location (center) -->
+                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                    <div class="relative">
+                                        <div class="w-4 h-4 bg-blue-600 rounded-full border-2 border-white shadow-lg"></div>
+                                        <div class="absolute -inset-2 bg-blue-600 rounded-full opacity-30 animate-pulse"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Feature preview cards -->
+                        <div class="grid grid-cols-3 gap-4 mt-8">
+                            <div class="glass rounded-xl p-4 text-center">
+                                <div class="feature-icon mx-auto mb-2">
+                                    <i data-lucide="calendar" class="w-5 h-5 text-gray-600"></i>
+                                </div>
+                                <p class="text-xs text-gray-600 font-medium">Events</p>
+                            </div>
+                            
+                            <div class="glass rounded-xl p-4 text-center">
+                                <div class="feature-icon mx-auto mb-2">
+                                    <i data-lucide="users" class="w-5 h-5 text-gray-600"></i>
+                                </div>
+                                <p class="text-xs text-gray-600 font-medium">People</p>
+                            </div>
+                            
+                            <div class="glass rounded-xl p-4 text-center">
+                                <div class="feature-icon mx-auto mb-2">
+                                    <i data-lucide="map-pin" class="w-5 h-5 text-gray-600"></i>
+                                </div>
+                                <p class="text-xs text-gray-600 font-medium">Places</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section id="features" class="py-24 px-4 mt-20">
+        <div class="max-w-6xl mx-auto bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg">
+            <div class="text-center mb-20">
+                <div class="glass inline-block px-4 py-2 rounded-full mb-6">
+                    <span class="text-sm font-medium text-gray-600">Features</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+                    Your <span class="text-gradient">hyperlocal social network</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Push-based discovery. Verified insights. Real-time connections.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="glass glass-hover rounded-2xl p-8">
+                    <div class="feature-icon mb-6">
+                        <i data-lucide="radar" class="w-6 h-6 text-gray-700"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-900">Live Local Feed</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Real-time posts from verified users within 20km. See what's happening now — events, deals, hidden spots, local insights.
+                    </p>
+                </div>
+                
+                <div class="glass glass-hover rounded-2xl p-8">
+                    <div class="feature-icon mb-6">
+                        <i data-lucide="brain-circuit" class="w-6 h-6 text-gray-700"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-900">Smart Recommendations</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        No more searching. AI learns your preferences and pushes relevant opportunities — like a trusted local friend who knows what you'd love.
+                    </p>
+                </div>
+                
+                <div class="glass glass-hover rounded-2xl p-8">
+                    <div class="feature-icon mb-6">
+                        <i data-lucide="route" class="w-6 h-6 text-gray-700"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-900">Trails & Planning</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Follow curated trails from locals. Plan your next 3 hours based on verified insights. Become a local influencer by sharing your discoveries.
+                    </p>
+                </div>
+                
+                <div class="glass glass-hover rounded-2xl p-8">
+                    <div class="feature-icon mb-6">
+                        <i data-lucide="message-circle-question" class="w-6 h-6 text-gray-700"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-900">Ask Around</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Ask locals anything. Best biryani? Airport commute? Our community answers based on real experiences, not reviews.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Team Section -->
+    <section id="team" class="py-24 px-4 bg-gray-50 mt-20">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-20">
+                <div class="glass inline-block px-4 py-2 rounded-full mb-6">
+                    <span class="text-sm font-medium text-gray-600">Our Team</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+                    Building the future of <span class="text-gradient">hyper-local connection</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Creating a trusted, location-first network that connects people through real experiences
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="glass glass-hover rounded-2xl p-10 text-center">
+                    <div class="w-40 h-40 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center relative overflow-hidden">
+                        <img src="atheev.png" alt="Atheev Raja" class="w-full h-full object-cover rounded-full" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'; console.log('Image failed to load: atheev.png');">
+                        <div class="absolute inset-0 flex items-center justify-center" style="display: none;">
+                            <span class="text-4xl font-bold text-gray-700">A</span>
+                        </div>
+                        <div class="absolute inset-0 rounded-full border border-gray-300"></div>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2 text-gray-900">Atheev Raja</h3>
+                    <p class="text-gray-600 font-medium">Founder & CEO</p>
+                </div>
+                
+                <div class="glass glass-hover rounded-2xl p-10 text-center">
+                    <div class="w-40 h-40 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center relative overflow-hidden">
+                        <img src="akshith.png" alt="Akshith Raja" class="w-full h-full object-cover rounded-full" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'; console.log('Image failed to load: akshith.png');">
+                        <div class="absolute inset-0 flex items-center justify-center" style="display: none;">
+                            <span class="text-4xl font-bold text-gray-700">A</span>
+                        </div>
+                        <div class="absolute inset-0 rounded-full border border-gray-300"></div>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2 text-gray-900">Akshith Raja</h3>
+                    <p class="text-gray-600 font-medium">Co-Founder & CTO</p>
+                </div>
+                
+                <div class="glass glass-hover rounded-2xl p-10 text-center">
+                    <div class="w-40 h-40 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center relative overflow-hidden">
+                        <img src="vishnu.png" alt="Vishnu M" class="w-full h-full object-cover rounded-full" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'; console.log('Image failed to load: vishnu.png');">
+                        <div class="absolute inset-0 flex items-center justify-center" style="display: none;">
+                            <span class="text-4xl font-bold text-gray-700">V</span>
+                        </div>
+                        <div class="absolute inset-0 rounded-full border border-gray-300"></div>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2 text-gray-900">Vishnu M</h3>
+                    <p class="text-gray-600 font-medium">Co-Founder & Design Head</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-4 mt-20">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="glass inline-block px-4 py-2 rounded-full mb-8">
+                <span class="text-sm font-medium text-gray-600">Coming Soon</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+                Your neighborhood has <span class="text-gradient">stories to tell</span>
+            </h2>
+            <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+                Join the waitlist for invite-only beta access. Help us build a trusted network where location becomes your social superpower.
+            </p>
+            
+            <div class="glass rounded-2xl p-8 max-w-md mx-auto">
+                <div class="space-y-6">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                            <i data-lucide="users-round" class="w-8 h-8 text-gray-600"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900">Get Notified</h3>
+                    </div>
+                    
+                    <input 
+                        type="email" 
+                        placeholder="Enter your email address" 
+                        class="w-full px-4 py-3 rounded-xl bg-white/50 border border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
+                    >
+                    
+                    <button class="btn-primary w-full py-3 rounded-xl text-lg font-medium">
+                        Notify Me
+                    </button>
+                    
+                    <div class="flex items-center justify-center space-x-4 text-xs text-gray-500 pt-2">
+                        <div class="flex items-center space-x-1">
+                            <i data-lucide="clock" class="w-3 h-3"></i>
+                            <span>Coming soon</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <i data-lucide="shield-check" class="w-3 h-3"></i>
+                            <span>Be the first to know</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-16 px-4 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="glass rounded-2xl p-8 text-center">
+                <div class="flex items-center justify-center space-x-3 mb-6">
+                    <div class="logo-circle">
+                        <!-- Logo -->
+                    </div>
+                    <span class="text-xl font-semibold tracking-tight">around.</span>
+                </div>
+                
+                <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
+                    Making the world hyperlocally connected and trusted, one neighborhood at a time.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-6 text-sm text-gray-500">
+                    <span>© 2024 around.</span>
+                    <div class="flex items-center space-x-1">
+                        <i data-lucide="heart" class="w-4 h-4"></i>
+                        <span>Made for communities</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
