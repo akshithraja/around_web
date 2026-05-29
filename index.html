@@ -57,12 +57,17 @@
     }
 
     .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-size: 22px;
       font-weight: 700;
       letter-spacing: -0.5px;
       color: var(--white);
       text-decoration: none;
     }
+
+    .nav-logo img { height: 26px; width: auto; display: block; vertical-align: middle; }
 
     .nav-logo .bee { color: var(--purple-bright); }
 
@@ -473,7 +478,8 @@
       margin: 0 auto;
     }
 
-    .footer-logo { font-size: 18px; font-weight: 700; }
+    .footer-logo { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; }
+    .footer-logo img { height: 21px; width: auto; display: block; vertical-align: middle; }
     .footer-logo .bee { color: var(--purple-bright); }
     .footer-copy { font-size: 13px; color: #333; }
     .footer-links { display: flex; gap: 24px; }
@@ -574,15 +580,110 @@
       .fade-in { opacity: 1; transform: none; }
     }
 
+    /* ─── HAMBURGER ──────────────────────────────────── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 200;
+    }
+    .nav-hamburger span {
+      display: block;
+      height: 2px;
+      width: 100%;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform 0.25s, opacity 0.25s;
+      transform-origin: center;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .nav-drawer {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.97);
+      z-index: 150;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      backdrop-filter: blur(20px);
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+      transition: color 0.2s;
+    }
+    .nav-drawer a:hover { color: var(--purple-bright); }
+    .nav-drawer .drawer-cta {
+      background: var(--purple);
+      color: var(--white) !important;
+      padding: 16px 36px;
+      border-radius: 100px;
+      font-size: 18px !important;
+    }
+
     /* ─── RESPONSIVE ──────────────────────────────────── */
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+
       section { padding: 72px 20px; }
-      .team-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
-      .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
-      .footer-links { flex-wrap: wrap; justify-content: center; }
+
+      .hero { padding: 100px 20px 72px; }
       .hero-title { letter-spacing: -2px; }
+      .hero-sub { font-size: 16px; }
+      .btn-primary { padding: 14px 24px; font-size: 15px; }
+
+      .team-section { padding: 80px 20px; }
+      .team-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .team-header { margin-bottom: 40px; }
+      .team-avatar { width: 80px; height: 80px; }
+      .team-card { padding: 24px 16px; }
+      .team-name { font-size: 14px; }
+      .team-role { font-size: 11px; }
+
+      .metric-banner { padding: 80px 20px; }
+      .metric-desc { font-size: 15px; }
+
+      .pilot-form-wrap {
+        flex-direction: column;
+        border-radius: 16px;
+        padding: 16px;
+        align-items: stretch;
+        gap: 12px;
+      }
+      .pilot-form-wrap input { padding: 8px 0; font-size: 16px; }
+      .pilot-form-wrap .btn-pill { border-radius: 100px; padding: 14px 24px; font-size: 15px; text-align: center; }
+
+      .pilot-stats-strip { gap: 20px; flex-wrap: wrap; justify-content: center; }
+      .pilot-stat-item + .pilot-stat-item { padding-left: 0 !important; }
+      .pilot-stat-item + .pilot-stat-item::before { display: none; }
+
+      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+      .footer-logo { justify-content: center; }
+    }
+
+    @media (max-width: 380px) {
+      .hero-title { font-size: 52px; }
+      .team-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -590,13 +691,23 @@
 
   <!-- NAV -->
   <nav>
-    <a href="#" class="nav-logo">Around<span class="bee">Bee</span></a>
+    <a href="#" class="nav-logo"><img src="aroundbee-mark.svg" alt="AroundBee mark" />Around<span class="bee">Bee</span></a>
     <ul class="nav-links">
       <li><a href="#team">Our Team</a></li>
       <li><a href="#pilot">Pilot</a></li>
       <li><a href="#pilot" class="nav-cta">Get Early Access</a></li>
     </ul>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <!-- Mobile nav drawer -->
+  <div class="nav-drawer" id="nav-drawer">
+    <a href="#team" class="drawer-link">Our Team</a>
+    <a href="#pilot" class="drawer-link">Pilot</a>
+    <a href="#pilot" class="drawer-cta">Get Early Access</a>
+  </div>
 
   <!-- HERO -->
   <section class="hero" id="hero">
@@ -716,12 +827,25 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
-      <div class="footer-logo">Around<span class="bee">Bee</span></div>
+      <div class="footer-logo"><img src="aroundbee-mark.svg" alt="AroundBee mark" />Around<span class="bee">Bee</span></div>
       <div class="footer-copy">© 2025 AroundBee. All rights reserved.</div>
     </div>
   </footer>
 
   <script>
+  /* ─── MOBILE NAV ───────────────────────── */
+  (function () {
+    const btn    = document.getElementById('nav-hamburger');
+    const drawer = document.getElementById('nav-drawer');
+    function close() { btn.classList.remove('open'); drawer.classList.remove('open'); document.body.style.overflow = ''; }
+    btn.addEventListener('click', function () {
+      const isOpen = drawer.classList.toggle('open');
+      btn.classList.toggle('open', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    drawer.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', close); });
+  })();
+
   /* ──────────────────────────────────────────
      TOP-DOWN CITY — dark night, cluster roads,
      organic blocks, multi-stop BFS trail system
@@ -1519,7 +1643,7 @@
     btn.disabled = true;
 
     try {
-      const res = await fetch('https://formspree.io/f/xzdwwzqn', {
+      const res = await fetch('https://formspree.io/f/xeeddezd', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({ phone: input.value.trim() })
