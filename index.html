@@ -1,739 +1,1542 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>around. - Discover What's Around You</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="around_app.JPG">
-    <link rel="shortcut icon" href="favicon.svg">
-    
-    <style>
-        * {
-            box-sizing: border-box !important;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%) !important;
-            font-family: 'Inter', sans-serif !important;
-            color: #111111 !important;
-        }
-        
-        /* Enhanced Glass morphism effects */
-        .glass {
-            background: rgba(255, 255, 255, 0.95) !important;
-            backdrop-filter: blur(40px) !important;
-            -webkit-backdrop-filter: blur(40px) !important;
-            border: 1px solid rgba(255, 255, 255, 0.4) !important;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
-        }
-        
-        /* Enhanced navigation glass */
-        nav {
-            z-index: 9999 !important;
-            background: rgba(255, 255, 255, 0.15) !important;
-            backdrop-filter: blur(40px) !important;
-            -webkit-backdrop-filter: blur(40px) !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
-        }
-        
-        /* Highlighted navigation elements */
-        .nav-logo {
-            background: rgba(255, 255, 255, 0.9) !important;
-            backdrop-filter: blur(20px) !important;
-            -webkit-backdrop-filter: blur(20px) !important;
-            border-radius: 12px !important;
-            padding: 8px 16px !important;
-            border: 1px solid rgba(0, 0, 0, 0.1) !important;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-        }
-        
-        .nav-cta-highlight {
-            background: rgba(255, 255, 255, 0.9) !important;
-            backdrop-filter: blur(20px) !important;
-            -webkit-backdrop-filter: blur(20px) !important;
-            border-radius: 8px !important;
-            padding: 2px !important;
-            border: 1px solid rgba(0, 0, 0, 0.1) !important;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-        }
-        
-        .nav-link-frosted {
-            color: rgba(17, 17, 17, 0.6) !important;
-            font-weight: 400 !important;
-            transition: all 0.3s ease !important;
-        }
-        
-        .nav-link-frosted:hover {
-            color: rgba(17, 17, 17, 0.9) !important;
-            background: rgba(255, 255, 255, 0.3) !important;
-            backdrop-filter: blur(10px) !important;
-        }
-        
-        .glass-dark {
-            background: rgba(17, 17, 17, 0.8) !important;
-            backdrop-filter: blur(20px) !important;
-            -webkit-backdrop-filter: blur(20px) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        }
-        
-        .glass-hover:hover {
-            background: rgba(255, 255, 255, 1.0) !important;
-            border: 2px solid rgba(0, 0, 0, 0.15) !important;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        }
-        
-        /* Button styles */
-        .btn-primary {
-            background: #000000 !important;
-            color: #ffffff !important;
-            border: none !important;
-            font-weight: 500 !important;
-            transition: all 0.3s ease !important;
-        }
-        
-        .btn-primary:hover {
-            background: #1a1a1a !important;
-            transform: translateY(-1px) !important;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
-        }
-        
-        .btn-secondary {
-            background: #000000 !important;
-            color: #ffffff !important;
-            border: 1px solid #000000 !important;
-            font-weight: 500 !important;
-            transition: all 0.3s ease !important;
-        }
-        
-        .btn-secondary:hover {
-            background: #1a1a1a !important;
-            border-color: #1a1a1a !important;
-            transform: translateY(-1px) !important;
-        }
-        
-        /* White rectangular backgrounds for sections */
-        #features {
-            background: #ffffff !important;
-            position: relative !important;
-        }
-        
-        #team {
-            background: #ffffff !important;
-            position: relative !important;
-        }
-        
-        /* Contact Section - Glassy White Background */
-        #contact {
-            background: rgba(255, 255, 255, 0.85) !important;
-            backdrop-filter: blur(40px) !important;
-            -webkit-backdrop-filter: blur(40px) !important;
-            position: relative !important;
-            border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
-        }
-        
-        /* Logo circular design inspired by brand */
-        .logo-circle {
-            width: 40px !important;
-            height: 40px !important;
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%) !important;
-            border-radius: 12px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            position: relative !important;
-        }
-        
-        .logo-circle::after {
-            content: '' !important;
-            position: absolute !important;
-            width: 20px !important;
-            height: 20px !important;
-            border-radius: 50% !important;
-            border: 2px solid rgba(245, 230, 232, 0.9) !important;
-            background: transparent !important;
-        }
-        
-        /* Floating elements inspired by circular theme */
-        .floating-circles {
-            position: absolute !important;
-            width: 100% !important;
-            height: 100% !important;
-            overflow: hidden !important;
-            pointer-events: none !important;
-        }
-        
-        .floating-circles::before,
-        .floating-circles::after {
-            content: '' !important;
-            position: absolute !important;
-            border-radius: 50% !important;
-            animation: float-gentle 8s ease-in-out infinite !important;
-        }
-        
-        .floating-circles::before {
-            width: 300px !important;
-            height: 300px !important;
-            background: radial-gradient(circle, rgba(0, 0, 0, 0.02) 0%, transparent 70%) !important;
-            top: 10% !important;
-            right: -10% !important;
-            animation-delay: 0s !important;
-        }
-        
-        .floating-circles::after {
-            width: 200px !important;
-            height: 200px !important;
-            background: radial-gradient(circle, rgba(0, 0, 0, 0.03) 0%, transparent 70%) !important;
-            bottom: 20% !important;
-            left: -5% !important;
-            animation-delay: -4s !important;
-        }
-        
-        @keyframes float-gentle {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(2deg); }
-        }
-        
-        /* Typography */
-        .hero-title {
-            font-size: clamp(2.5rem, 8vw, 6rem) !important;
-            font-weight: 800 !important;
-            line-height: 1.1 !important;
-            letter-spacing: -0.02em !important;
-        }
-        
-        .text-gradient {
-            background: linear-gradient(135deg, #111111 0%, #666666 100%) !important;
-            -webkit-background-clip: text !important;
-            -webkit-text-fill-color: transparent !important;
-            background-clip: text !important;
-        }
-        
-        /* Feature cards with circular accents */
-        .feature-icon {
-            width: 60px !important;
-            height: 60px !important;
-            background: rgba(0, 0, 0, 0.05) !important;
-            border-radius: 50% !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            position: relative !important;
-        }
-        
-        .feature-icon::after {
-            content: '' !important;
-            position: absolute !important;
-            width: 30px !important;
-            height: 30px !important;
-            border-radius: 50% !important;
-            border: 1px solid rgba(0, 0, 0, 0.1) !important;
-            background: transparent !important;
-        }
-        
-        /* Minimal grid pattern */
-        .grid-pattern {
-            background-image: 
-                linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px) !important;
-            background-size: 50px 50px !important;
-        }
-        
-        /* Smooth scroll behavior */
-        html {
-            scroll-behavior: smooth !important;
-        }
-        
-        /* Focus states */
-        .focus-visible:focus-visible {
-            outline: 2px solid #000000 !important;
-            outline-offset: 2px !important;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AroundBee</title>
+  <meta name="description" content="AroundBee turns city discovery into lived, reusable Trails. Hyperlocal. Trust-first. Built for Bangalore." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" /></noscript>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:        #000000;
+      --charcoal:     #110c20;
+      --dark-gray:    #1c1535;
+      --medium-gray:  #8b8ba0;
+      --light-gray:   #e8e8f0;
+      --white:        #ffffff;
+      --purple:       #D524FD;
+      --purple-bright:#e055fd;
+      --purple-dim:   rgba(213, 36, 253, 0.12);
+      --purple-mid:   rgba(213, 36, 253, 0.4);
+      --purple-glow:  rgba(213, 36, 253, 0.6);
+      --glass-bg:     rgba(255,255,255,0.05);
+      --glass-border: rgba(255,255,255,0.10);
+      --radius-sm:    8px;
+      --radius-md:    16px;
+      --radius-lg:    24px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .nav-logo {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-logo .bee { color: var(--purple-bright); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--medium-gray);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--purple) !important;
+      color: var(--white) !important;
+      padding: 10px 20px;
+      border-radius: 100px;
+      font-weight: 600 !important;
+      font-size: 14px !important;
+      text-decoration: none;
+      transition: opacity 0.2s !important;
+    }
+
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ─── HERO ────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      overflow: hidden;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.032) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.032) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    /* Vignette overlay — corners, edges, and subtle centre darkening */
+    .hero-vignette {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        radial-gradient(ellipse 55% 45% at 0% 0%,   rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 40%, transparent 70%),
+        radial-gradient(ellipse 55% 45% at 100% 0%,  rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 40%, transparent 70%),
+        radial-gradient(ellipse 110% 100% at 50% 50%, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.52) 35%, rgba(0,0,0,0.28) 60%, transparent 78%, rgba(0,0,0,0.82) 100%),
+        linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, transparent 28%, transparent 68%, rgba(0,0,0,0.70) 100%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 13px;
+      color: var(--medium-gray);
+      margin-bottom: 32px;
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+      animation-delay: 2.2s;
+    }
+
+    .hero-badge .dot {
+      width: 6px; height: 6px;
+      background: var(--purple-bright);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50% { opacity:0.5; transform:scale(0.8); }
+    }
+
+    /* AroundBee title — characters revealed one by one */
+    .hero-title {
+      font-size: clamp(64px, 10vw, 120px);
+      font-weight: 700;
+      letter-spacing: -4px;
+      line-height: 1.0;
+      margin-bottom: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .hero-title .char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(40px) scale(0.9);
+      animation: charReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .hero-title .char.purple { color: var(--purple-bright); }
+
+    @keyframes charReveal {
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--medium-gray);
+      max-width: 500px;
+      line-height: 1.65;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+      animation-delay: 2.4s;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+      animation-delay: 2.6s;
+    }
+
+    .btn-primary {
+      background: var(--purple);
+      color: var(--white);
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s, opacity 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 32px var(--purple-mid);
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+
+
+.hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--medium-gray);
+      font-size: 12px;
+      z-index: 2;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 3s;
+    }
+
+    .scroll-arrow-wrap { animation: bounceY 2s ease-in-out infinite; }
+
+    @keyframes bounceY {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    .scroll-arrow {
+      width: 20px; height: 20px;
+      border-right: 1.5px solid var(--medium-gray);
+      border-bottom: 1.5px solid var(--medium-gray);
+      transform: rotate(45deg);
+    }
+
+    /* ─── SECTION SHARED ──────────────────────────────── */
+    section { padding: 100px 24px; }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--purple-bright);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+
+    /* ─── METRIC BANNER ───────────────────────────────── */
+    .metric-banner {
+      padding: 140px 24px;
+      text-align: center;
+      position: relative;
+      background: #000;
+      overflow: hidden;
+    }
+
+    /* Radial purple glow behind the section */
+    .metric-banner::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(213,36,253,0.13) 0%, rgba(213,36,253,0.04) 45%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Top horizontal line accent */
+    .metric-banner::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, rgba(213,36,253,0.5));
+      pointer-events: none;
+    }
+
+    .pilot-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(213,36,253,0.08);
+      border: 1px solid rgba(213,36,253,0.25);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--purple-bright);
+      margin-bottom: 32px;
+      position: relative;
+    }
+
+    .pilot-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--purple-bright);
+      box-shadow: 0 0 8px var(--purple-bright);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .metric-label { font-size: 13px; color: var(--medium-gray); margin-bottom: 8px; }
+
+    .metric-big {
+      font-size: clamp(36px, 5.5vw, 68px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      position: relative;
+    }
+
+    .metric-big .purple { color: var(--purple-bright); }
+
+    .metric-desc {
+      font-size: 16px;
+      color: var(--medium-gray);
+      margin-top: 20px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    /* Pill form */
+    .pilot-form-wrap {
+      display: flex;
+      align-items: center;
+      max-width: 460px;
+      margin: 40px auto 0;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      padding: 6px 6px 6px 24px;
+      transition: border-color 0.3s;
+      position: relative;
+    }
+    .pilot-form-wrap:focus-within {
+      border-color: rgba(213,36,253,0.5);
+      box-shadow: 0 0 0 4px rgba(213,36,253,0.08);
+    }
+    .pilot-form-wrap input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      font-family: inherit;
+      color: #fff;
+      padding: 8px 0;
+    }
+    .pilot-form-wrap input::placeholder { color: rgba(255,255,255,0.25); }
+    .pilot-form-wrap .btn-pill {
+      background: var(--purple);
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, box-shadow 0.2s;
+      flex-shrink: 0;
+    }
+    .pilot-form-wrap .btn-pill:hover {
+      background: var(--purple-bright);
+      box-shadow: 0 0 24px rgba(213,36,253,0.5);
+    }
+
+    /* Stats strip */
+    .pilot-stats-strip {
+      display: inline-flex;
+      gap: 40px;
+      margin-top: 52px;
+      position: relative;
+    }
+    .pilot-stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .pilot-stat-item + .pilot-stat-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 50%;
+      width: 1px; height: 24px;
+      background: rgba(255,255,255,0.07);
+      transform: translateY(-50%);
+    }
+    .pstat-num {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+    .pstat-label {
+      font-size: 11px;
+      color: #8b8ba0;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+
+/* ─── FOOTER ──────────────────────────────────────── */
+    footer { border-top: 1px solid rgba(255,255,255,0.05); padding: 48px 24px; }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-logo { font-size: 18px; font-weight: 700; }
+    .footer-logo .bee { color: var(--purple-bright); }
+    .footer-copy { font-size: 13px; color: #333; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 13px; color: #333; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--medium-gray); }
+
+    /* ─── TEAM ───────────────────────────────────────── */
+    .team-section {
+      background: #000;
+      padding: 120px 40px;
+    }
+    .team-header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .team-card {
+      background: #0a0a0a;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .team-card:hover {
+      border-color: rgba(213,36,253,0.3);
+      transform: translateY(-4px);
+    }
+    .team-avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: #dcdcdc;
+      border: none;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 700;
+      color: #555;
+      letter-spacing: -1px;
+      overflow: hidden;
+    }
+    .team-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 50%;
+      filter: none;
+      display: block;
+    }
+    .team-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+    .team-role {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--purple-bright);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    /* ─── SCROLL FADE ─────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      will-change: opacity, transform;
+    }
+    .fade-in.visible { opacity: 1; transform: none; will-change: auto; }
+
+    /* ─── CONTENT VISIBILITY ──────────────────────────── */
+    .team-section  { content-visibility: auto; contain-intrinsic-size: 0 600px; }
+    .metric-banner { content-visibility: auto; contain-intrinsic-size: 0 700px; }
+
+    /* ─── REDUCED MOTION ──────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .hero-title .char { opacity: 1; transform: none; }
+      .hero-badge, .hero-sub, .hero-actions, .hero-scroll { opacity: 1; transform: none; }
+      .fade-in { opacity: 1; transform: none; }
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      section { padding: 72px 20px; }
+      .team-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+      .hero-title { letter-spacing: -2px; }
+    }
+  </style>
 </head>
-<body class="overflow-x-hidden grid-pattern">
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/20 backdrop-blur-2xl border-b border-white/30">
-        <div class="mx-4 mt-4 mb-2 px-6 py-4">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center space-x-3">
-                    <div class="logo-circle">
-                        <!-- Logo inspired by the circular design -->
-                    </div>
-                    <span class="text-xl font-semibold tracking-tight text-gray-900">around.</span>
-                </div>
-                
-                <div class="hidden md:flex items-center space-x-2">
-                    <a href="#features" class="nav-link-frosted px-4 py-2 rounded-lg text-sm">Features</a>
-                    <a href="#team" class="nav-link-frosted px-4 py-2 rounded-lg text-sm">Team</a>
-                    <div class="nav-cta-highlight">
-                        <a href="#contact" class="btn-primary px-4 py-2 rounded-lg text-sm">Get Started</a>
-                    </div>
-                </div>
-                
-                <div class="md:hidden nav-cta-highlight">
-                    <button class="p-2 rounded-lg">
-                        <i data-lucide="menu" class="w-5 h-5 text-gray-700"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
-    
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center pt-28 pb-16 px-4">
-        <div class="floating-circles"></div>
-        
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div>
-                    <div class="glass inline-block px-4 py-2 rounded-full mb-8">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-pulse"></div>
-                            <span class="text-sm font-medium text-gray-600">Now under Development</span>
-                        </div>
-                    </div>
-                    
-                    <h1 class="hero-title mb-8 text-gray-900">
-                        <span class="block">Discover</span>
-                        <span class="block">What's</span>
-                        <span class="block text-gradient">Around You</span>
-                    </h1>
-                    
-                    <p class="text-xl md:text-2xl mb-12 leading-relaxed text-gray-600 max-w-2xl">
-                        See what's happening around you — in real time. From hidden gems to local events, discover your city through verified insights from people on the ground.
-                    </p>
-                    
-                    <div class="flex flex-col sm:flex-row gap-4 mb-16">
-                        <div class="px-8 py-4 text-lg font-medium flex items-center justify-center space-x-2 text-gray-600">
-                            <i data-lucide="clock" class="w-5 h-5"></i>
-                            <span>Coming Soon</span>
-                        </div>
-                        <a href="#contact" class="btn-secondary px-8 py-4 rounded-2xl text-lg font-medium flex items-center justify-center space-x-2">
-                            <i data-lucide="users" class="w-5 h-5"></i>
-                            <span>Interested?</span>
-                        </a>
-                    </div>
-                    
-                    <!-- Trust indicators -->
-                    <div class="flex items-center space-x-8 text-sm text-gray-500">
-                        <div class="flex items-center space-x-2">
-                            <i data-lucide="shield-check" class="w-4 h-4"></i>
-                            <span>Verified users only</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <i data-lucide="map-pin" class="w-4 h-4"></i>
-                            <span>Location-first</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="relative">
-                    <!-- Hero illustration inspired by circular logo -->
-                    <div class="glass glass-hover rounded-3xl p-12 relative">
-                        <div class="aspect-square bg-gradient-to-br from-gray-50 to-white rounded-2xl flex items-center justify-center relative overflow-hidden">
-                            <!-- Map Background Pattern -->
-                            <div class="absolute inset-0 opacity-20">
-                                <!-- Street grid pattern -->
-                                <div class="absolute inset-4 bg-gray-200">
-                                    <!-- Vertical streets -->
-                                    <div class="absolute left-1/4 top-0 bottom-0 w-1 bg-white"></div>
-                                    <div class="absolute left-2/4 top-0 bottom-0 w-1 bg-white"></div>
-                                    <div class="absolute left-3/4 top-0 bottom-0 w-1 bg-white"></div>
-                                    <!-- Horizontal streets -->
-                                    <div class="absolute top-1/4 left-0 right-0 h-1 bg-white"></div>
-                                    <div class="absolute top-2/4 left-0 right-0 h-1 bg-white"></div>
-                                    <div class="absolute top-3/4 left-0 right-0 h-1 bg-white"></div>
-                                </div>
-                            </div>
-                            
-                            <!-- Store Pins with Offers -->
-                            <div class="relative z-10 w-full h-full">
-                                <!-- Coffee Shop with 20% off -->
-                                <div class="absolute top-1/4 left-1/3 group">
-                                    <div class="relative">
-                                        <i data-lucide="map-pin" class="w-6 h-6 text-red-500"></i>
-                                        <div class="absolute -top-8 -left-8 bg-red-500 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                                            ☕ 20% off coffee
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Restaurant with happy hour -->
-                                <div class="absolute top-2/3 left-1/2 group">
-                                    <div class="relative">
-                                        <i data-lucide="map-pin" class="w-6 h-6 text-orange-500"></i>
-                                        <div class="absolute -top-8 -left-10 bg-orange-500 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                                            🍕 Happy hour 4-6pm
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Gym with free trial -->
-                                <div class="absolute top-1/2 left-1/4 group">
-                                    <div class="relative">
-                                        <i data-lucide="map-pin" class="w-6 h-6 text-blue-500"></i>
-                                        <div class="absolute -top-8 -left-8 bg-blue-500 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                                            💪 Free trial week
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Bookstore event -->
-                                <div class="absolute top-1/3 right-1/3 group">
-                                    <div class="relative">
-                                        <i data-lucide="map-pin" class="w-6 h-6 text-green-500"></i>
-                                        <div class="absolute -top-8 -left-8 bg-green-500 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                                            📚 Author event 7pm
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Pharmacy discount -->
-                                <div class="absolute bottom-1/4 right-1/4 group">
-                                    <div class="relative">
-                                        <i data-lucide="map-pin" class="w-6 h-6 text-purple-500"></i>
-                                        <div class="absolute -top-8 -left-8 bg-purple-500 text-white text-xs px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                                            💊 10% off vitamins
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Your location (center) -->
-                                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                                    <div class="relative">
-                                        <div class="w-4 h-4 bg-blue-600 rounded-full border-2 border-white shadow-lg"></div>
-                                        <div class="absolute -inset-2 bg-blue-600 rounded-full opacity-30 animate-pulse"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Feature preview cards -->
-                        <div class="grid grid-cols-3 gap-4 mt-8">
-                            <div class="glass rounded-xl p-4 text-center">
-                                <div class="feature-icon mx-auto mb-2">
-                                    <i data-lucide="calendar" class="w-5 h-5 text-gray-600"></i>
-                                </div>
-                                <p class="text-xs text-gray-600 font-medium">Events</p>
-                            </div>
-                            
-                            <div class="glass rounded-xl p-4 text-center">
-                                <div class="feature-icon mx-auto mb-2">
-                                    <i data-lucide="users" class="w-5 h-5 text-gray-600"></i>
-                                </div>
-                                <p class="text-xs text-gray-600 font-medium">People</p>
-                            </div>
-                            
-                            <div class="glass rounded-xl p-4 text-center">
-                                <div class="feature-icon mx-auto mb-2">
-                                    <i data-lucide="map-pin" class="w-5 h-5 text-gray-600"></i>
-                                </div>
-                                <p class="text-xs text-gray-600 font-medium">Places</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Features Section -->
-    <section id="features" class="py-24 px-4 mt-20">
-        <div class="max-w-6xl mx-auto bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg">
-            <div class="text-center mb-20">
-                <div class="glass inline-block px-4 py-2 rounded-full mb-6">
-                    <span class="text-sm font-medium text-gray-600">Features</span>
-                </div>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-                    Your <span class="text-gradient">hyperlocal social network</span>
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    Push-based discovery. Verified insights. Real-time connections.
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="glass glass-hover rounded-2xl p-8">
-                    <div class="feature-icon mb-6">
-                        <i data-lucide="radar" class="w-6 h-6 text-gray-700"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-4 text-gray-900">Live Local Feed</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        Real-time posts from verified users within 20km. See what's happening now — events, deals, hidden spots, local insights.
-                    </p>
-                </div>
-                
-                <div class="glass glass-hover rounded-2xl p-8">
-                    <div class="feature-icon mb-6">
-                        <i data-lucide="brain-circuit" class="w-6 h-6 text-gray-700"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-4 text-gray-900">Smart Recommendations</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        No more searching. AI learns your preferences and pushes relevant opportunities — like a trusted local friend who knows what you'd love.
-                    </p>
-                </div>
-                
-                <div class="glass glass-hover rounded-2xl p-8">
-                    <div class="feature-icon mb-6">
-                        <i data-lucide="route" class="w-6 h-6 text-gray-700"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-4 text-gray-900">Trails & Planning</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        Follow curated trails from locals. Plan your next 3 hours based on verified insights. Become a local influencer by sharing your discoveries.
-                    </p>
-                </div>
-                
-                <div class="glass glass-hover rounded-2xl p-8">
-                    <div class="feature-icon mb-6">
-                        <i data-lucide="message-circle-question" class="w-6 h-6 text-gray-700"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-4 text-gray-900">Ask Around</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        Ask locals anything. Best biryani? Airport commute? Our community answers based on real experiences, not reviews.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Team Section -->
-    <section id="team" class="py-24 px-4 bg-gray-50 mt-20">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-20">
-                <div class="glass inline-block px-4 py-2 rounded-full mb-6">
-                    <span class="text-sm font-medium text-gray-600">Our Team</span>
-                </div>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-                    Building the future of <span class="text-gradient">hyper-local connection</span>
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    Creating a trusted, location-first network that connects people through real experiences
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                <div class="glass glass-hover rounded-2xl p-10 text-center">
-                    <div class="w-40 h-40 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center relative overflow-hidden">
-                        <img src="akshith.png" alt="Akshith Raja" class="w-full h-full object-cover rounded-full" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'; console.log('Image failed to load: akshith.png');">
-                        <div class="absolute inset-0 flex items-center justify-center" style="display: none;">
-                            <span class="text-4xl font-bold text-gray-700">A</span>
-                        </div>
-                        <div class="absolute inset-0 rounded-full border border-gray-300"></div>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2 text-gray-900">Akshith Raja</h3>
-                    <p class="text-gray-600 font-medium mb-4">Co-Founder & CTO</p>
-                    <a href="https://www.linkedin.com/in/akshith-raja-88094397/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-8 h-8 text-white rounded-full transition-colors" style="background-color: #0077B5;" onmouseover="this.style.backgroundColor='#005885'" onmouseout="this.style.backgroundColor='#0077B5'">
-                        <i data-lucide="linkedin" class="w-4 h-4"></i>
-                    </a>
-                </div>
-                
-                <div class="glass glass-hover rounded-2xl p-10 text-center">
-                    <div class="w-40 h-40 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center relative overflow-hidden">
-                        <img src="atheev.png" alt="Atheev Raja" class="w-full h-full object-cover rounded-full" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'; console.log('Image failed to load: atheev.png');">
-                        <div class="absolute inset-0 flex items-center justify-center" style="display: none;">
-                            <span class="text-4xl font-bold text-gray-700">A</span>
-                        </div>
-                        <div class="absolute inset-0 rounded-full border border-gray-300"></div>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2 text-gray-900">Atheev Raja</h3>
-                    <p class="text-gray-600 font-medium mb-4">Founder & CEO</p>
-                    <a href="https://www.linkedin.com/in/atheev-raja-92a42a11a/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-8 h-8 text-white rounded-full transition-colors" style="background-color: #0077B5;" onmouseover="this.style.backgroundColor='#005885'" onmouseout="this.style.backgroundColor='#0077B5'">
-                        <i data-lucide="linkedin" class="w-4 h-4"></i>
-                    </a>
-                </div>
-                
-                <div class="glass glass-hover rounded-2xl p-10 text-center">
-                    <div class="w-40 h-40 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center relative overflow-hidden">
-                        <img src="vishnu.png" alt="Vishnu M" class="w-full h-full object-cover rounded-full" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'; console.log('Image failed to load: vishnu.png');">
-                        <div class="absolute inset-0 flex items-center justify-center" style="display: none;">
-                            <span class="text-4xl font-bold text-gray-700">V</span>
-                        </div>
-                        <div class="absolute inset-0 rounded-full border border-gray-300"></div>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2 text-gray-900">Vishnu M</h3>
-                    <p class="text-gray-600 font-medium mb-4">Co-Founder & Design Head</p>
-                    <a href="https://www.linkedin.com/in/vishnum07/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-8 h-8 text-white rounded-full transition-colors" style="background-color: #0077B5;" onmouseover="this.style.backgroundColor='#005885'" onmouseout="this.style.backgroundColor='#0077B5'">
-                        <i data-lucide="linkedin" class="w-4 h-4"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 px-4 mt-20">
-        <div class="max-w-4xl mx-auto text-center">
-            <div class="glass inline-block px-4 py-2 rounded-full mb-8">
-                <span class="text-sm font-medium text-gray-600">Coming Soon</span>
-            </div>
-            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-                Your neighborhood has <span class="text-gradient">stories to tell</span>
-            </h2>
-            <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-                Join the waitlist for invite-only beta access. Help us build a trusted network where location becomes your social superpower.
-            </p>
-            
-            <div class="glass rounded-2xl p-8 max-w-md mx-auto">
-                <form id="waitlist-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-6">
-                    <div class="text-center mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                            <i data-lucide="users-round" class="w-8 h-8 text-gray-600"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-900">Get Notified</h3>
-                    </div>
-                    
-                    <!-- Success Message -->
-                    <div id="success-message" class="hidden bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-xl text-sm">
-                        <div class="flex items-center space-x-2">
-                            <i data-lucide="check-circle" class="w-4 h-4"></i>
-                            <span>Thanks! You'll be the first to know when we launch.</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Error Message -->
-                    <div id="error-message" class="hidden bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-xl text-sm">
-                        <div class="flex items-center space-x-2">
-                            <i data-lucide="alert-circle" class="w-4 h-4"></i>
-                            <span>Something went wrong. Please try again.</span>
-                        </div>
-                    </div>
-                    
-                    <input 
-                        type="email" 
-                        name="email"
-                        id="email-input"
-                        placeholder="Enter your email address" 
-                        required
-                        class="w-full px-4 py-3 rounded-xl bg-white/50 border border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
-                    >
-                    
-                    <!-- Hidden field to identify the source -->
-                    <input type="hidden" name="_subject" value="New Around App Waitlist Signup">
-                    <input type="hidden" name="source" value="Around App Landing Page">
-                    
-                    <button type="submit" id="submit-btn" class="btn-primary w-full py-3 rounded-xl text-lg font-medium transition-all">
-                        <span id="submit-text">Notify Me</span>
-                        <span id="submit-loading" class="hidden">
-                            <i data-lucide="loader" class="w-4 h-4 animate-spin inline mr-2"></i>
-                            Submitting...
-                        </span>
-                    </button>
-                    
-                    <div class="flex items-center justify-center space-x-4 text-xs text-gray-500 pt-2">
-                        <div class="flex items-center space-x-1">
-                            <i data-lucide="clock" class="w-3 h-3"></i>
-                            <span>Coming soon</span>
-                        </div>
-                        <div class="flex items-center space-x-1">
-                            <i data-lucide="shield-check" class="w-3 h-3"></i>
-                            <span>Be the first to know</span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer class="py-16 px-4 bg-gray-50">
-        <div class="max-w-6xl mx-auto">
-            <div class="glass rounded-2xl p-8 text-center">
-                <div class="flex items-center justify-center space-x-3 mb-6">
-                    <div class="logo-circle">
-                        <!-- Logo -->
-                    </div>
-                    <span class="text-xl font-semibold tracking-tight">around.</span>
-                </div>
-                
-                <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
-                    Making the world hyperlocally connected and trusted, one neighborhood at a time.
-                </p>
-                
-                <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-6 text-sm text-gray-500">
-                    <span>© 2024 around.</span>
-                    <div class="flex items-center space-x-1">
-                        <i data-lucide="heart" class="w-4 h-4"></i>
-                        <span>Made for communities</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    
-    <script>
-        lucide.createIcons();
-        
-        // Waitlist form handling
-        document.getElementById('waitlist-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const form = e.target;
-            const submitBtn = document.getElementById('submit-btn');
-            const submitText = document.getElementById('submit-text');
-            const submitLoading = document.getElementById('submit-loading');
-            const successMessage = document.getElementById('success-message');
-            const errorMessage = document.getElementById('error-message');
-            const emailInput = document.getElementById('email-input');
-            
-            // Hide any previous messages
-            successMessage.classList.add('hidden');
-            errorMessage.classList.add('hidden');
-            
-            // Show loading state
-            submitBtn.disabled = true;
-            submitText.classList.add('hidden');
-            submitLoading.classList.remove('hidden');
-            
-            try {
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: new FormData(form),
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    // Success
-                    successMessage.classList.remove('hidden');
-                    form.reset();
-                    
-                    // Optional: Track with analytics
-                    if (typeof gtag !== 'undefined') {
-                        gtag('event', 'waitlist_signup', {
-                            'event_category': 'engagement',
-                            'event_label': 'around_app_waitlist'
-                        });
-                    }
-                } else {
-                    throw new Error('Form submission failed');
-                }
-            } catch (error) {
-                // Error
-                errorMessage.classList.remove('hidden');
-                console.error('Form submission error:', error);
-            } finally {
-                // Reset button state
-                submitBtn.disabled = false;
-                submitText.classList.remove('hidden');
-                submitLoading.classList.add('hidden');
-                
-                // Refresh Lucide icons (in case new ones were added)
-                lucide.createIcons();
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Around<span class="bee">Bee</span></a>
+    <ul class="nav-links">
+      <li><a href="#team">Our Team</a></li>
+      <li><a href="#pilot">Pilot</a></li>
+      <li><a href="#pilot" class="nav-cta">Get Early Access</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-vignette"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Now live in <span style="color:var(--purple-bright);font-weight:600;">Bangalore</span> · Pilot cohort open
+      </div>
+
+      <h1 class="hero-title" id="hero-title"></h1>
+
+      <p class="hero-sub">
+        Every Trail is a connected experience, logged by someone who lived it. Discover and step outside more.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#pilot" class="btn-primary">
+          Get Early Access
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <div class="scroll-arrow-wrap"><div class="scroll-arrow"></div></div>
+    </div>
+  </section>
+
+
+  <!-- TEAM -->
+  <section class="team-section" id="team">
+    <div class="team-header fade-in">
+      <p class="section-label">The People</p>
+      <h2 class="section-title">Our Team.</h2>
+    </div>
+    <div class="team-grid">
+
+      <div class="team-card fade-in">
+        <div class="team-avatar"><img src="atheev.png" alt="Atheev Raja" loading="lazy" decoding="async" /></div>
+        <div class="team-name">Atheev Raja</div>
+        <div class="team-role">Founder &amp; CEO</div>
+      </div>
+
+      <div class="team-card fade-in">
+        <div class="team-avatar"><img src="akshith.png" alt="Akshith Raja" loading="lazy" decoding="async" /></div>
+        <div class="team-name">Akshith Raja</div>
+        <div class="team-role">Co-Founder &amp; CTO</div>
+      </div>
+
+      <div class="team-card fade-in">
+        <div class="team-avatar"><img src="vishnu.png" alt="Vishnu M" loading="lazy" decoding="async" /></div>
+        <div class="team-name">Vishnu M</div>
+        <div class="team-role">Design &amp; Creative Head</div>
+      </div>
+
+      <div class="team-card fade-in">
+        <div class="team-avatar"><img src="Supriya.png" alt="Supriya B" loading="lazy" decoding="async" /></div>
+        <div class="team-name">Supriya B</div>
+        <div class="team-role">Design &amp; Marketing Head</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PILOT BANNER -->
+  <div class="metric-banner fade-in" id="pilot">
+
+    <div class="pilot-badge">
+      <span class="pilot-badge-dot"></span>
+      Pilot Bangalore · Get Early Access
+    </div>
+
+    <div class="metric-big">
+      An invitation for the<br><span class="purple">first Bees.</span>
+    </div>
+
+    <p class="metric-desc">
+      Join the AroundBee pilot in Bangalore. Be among the first to create and follow Trails in your neighbourhood.
+    </p>
+
+    <form class="pilot-form-wrap" onsubmit="handleSubmit(event)">
+      <input
+        type="tel"
+        id="phone-input-pilot"
+        name="phone"
+        placeholder="+91 98765 43210"
+      />
+      <button type="submit" class="btn-pill" id="submit-btn">Count me in →</button>
+    </form>
+
+    <div id="form-msg-pilot" style="margin-top:16px;font-size:13px;color:#e055fd;display:none;">
+      You're on the list. We'll reach out over WhatsApp. 🐝
+    </div>
+
+    <div class="pilot-stats-strip">
+      <div class="pilot-stat-item">
+        <div class="pstat-num">100</div>
+        <div class="pstat-label">First Bees</div>
+      </div>
+      <div class="pilot-stat-item" style="position:relative;padding-left:40px;">
+        <div class="pstat-num">iOS</div>
+        <div class="pstat-label">Platform</div>
+      </div>
+      <div class="pilot-stat-item" style="position:relative;padding-left:40px;">
+        <div class="pstat-num">Free</div>
+        <div class="pstat-label">Always</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Around<span class="bee">Bee</span></div>
+      <div class="footer-copy">© 2025 AroundBee. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+  /* ──────────────────────────────────────────
+     TOP-DOWN CITY — dark night, cluster roads,
+     organic blocks, multi-stop BFS trail system
+  ────────────────────────────────────────── */
+  (function () {
+    const canvas = document.getElementById('hero-canvas');
+    const ctx    = canvas.getContext('2d');
+
+    function mkRng(seed) {
+      return function () {
+        seed = (seed + 0x6D2B79F5) | 0;
+        let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+        t = t + Math.imul(t ^ (t >>> 7), 61 | t) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    let W, H, dpr;
+    let cityCanvas;
+    let nodes = [], adj = {};
+    let animFrame, phaseTimeout;
+
+    let completedTrails = [];
+    let activeTrail     = null;
+    let cycleMaxTrails  = 0;
+    let cycleTrailCount = 0;
+    let dotX = 0, dotY = 0;
+    let paused = false, pauseUntil = 0;
+    let fading = false, fadeAlpha = 1.0;
+    let usedEdges     = new Set();
+    let usedStopNodes = new Set();
+    let usedPathNodes = new Set(); // every node ever visited by any trail this cycle
+    let usedBBoxes    = [];        // bounding rectangles of each completed trail
+    let vRoads = [], hRoads = [];  // exposed for entity animation
+    let entities = [];
+
+    // Bee state
+    let beeX = 0, beeY = 0;
+    let beeAngle  = -Math.PI / 2; // facing up initially
+    let beeSpawnT = 0;             // timestamp of latest bee pop-in
+    let beeTween  = null;          // {x0,y0,x1,y1,t0,dur} — used only for trail-0 fly-in
+    let beeFlying = false;         // true while bee is flying to first trail start
+    let beeVisible = false;
+
+    function edgeKey(a, b) { return Math.min(a,b) + '-' + Math.max(a,b); }
+
+    /* ══════════════════════════════════════
+       SETUP
+    ══════════════════════════════════════ */
+    function setup() {
+      dpr = window.devicePixelRatio || 1;
+      W   = canvas.offsetWidth;
+      H   = canvas.offsetHeight;
+      canvas.width  = W * dpr;
+      canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      buildCity();
+      initEntities();
+      if (!beeVisible) {
+        // First load — wait for AroundBee text to fully form (~2.2s), then spawn bee
+        setTimeout(() => {
+          const titleEl = document.getElementById('hero-title');
+          const chars   = titleEl ? titleEl.querySelectorAll('.char') : [];
+          if (chars.length) {
+            const eRect = chars[chars.length - 1].getBoundingClientRect();
+            const cRect = canvas.getBoundingClientRect();
+            beeX = eRect.left + eRect.width  * 0.5 - cRect.left;
+            beeY = eRect.top  - cRect.top + 16; // sit on top edge of the letter
+            beeAngle = 0; // head pointing up — natural perched pose
+          }
+          beeSpawnT  = performance.now();
+          beeVisible = true;
+          // Sit on the "e" for 450ms, then fly to first trail start
+          setTimeout(() => startCycle(), 450);
+        }, 2200);
+      } else {
+        startCycle(); // resize — start immediately, bee already visible
+      }
+    }
+
+    /* ══════════════════════════════════════
+       CITY GENERATOR
+    ══════════════════════════════════════ */
+    function buildCity() {
+      const rng = mkRng(7777);
+      cityCanvas        = document.createElement('canvas');
+      cityCanvas.width  = W;
+      cityCanvas.height = H;
+      const cc          = cityCanvas.getContext('2d');
+
+      cc.fillStyle = '#000000';
+      cc.fillRect(0, 0, W, H);
+
+      function genRoads(total) {
+        const roads = []; let pos = 0;
+        while (pos < total) {
+          const tier = rng();
+          if (tier < 0.42) {
+            // Alley cluster — denser, more tiny roads between buildings
+            const count = 2 + Math.floor(rng() * 4);
+            for (let k = 0; k < count && pos < total; k++) {
+              const rw = 2 + Math.floor(rng() * 4);
+              roads.push({ pos, w: rw }); pos += rw + 8 + Math.floor(rng() * 14);
             }
+            pos += 10 + Math.floor(rng() * 22);
+          } else if (tier < 0.82) {
+            const rw = 8 + Math.floor(rng() * 13);
+            roads.push({ pos, w: rw }); pos += rw + 40 + Math.floor(rng() * 100);
+          } else {
+            const rw = 18 + Math.floor(rng() * 11);
+            roads.push({ pos, w: rw }); pos += rw + 100 + Math.floor(rng() * 110);
+          }
+        }
+        return roads;
+      }
+
+      vRoads = genRoads(W).map(r => ({ x: r.pos, w: r.w }));
+      hRoads = genRoads(H).map(r => ({ y: r.pos, w: r.w }));
+
+      const xDivs = new Set([0, W]);
+      for (const r of vRoads) { xDivs.add(r.x); xDivs.add(r.x + r.w); }
+      const yDivs = new Set([0, H]);
+      for (const r of hRoads) { yDivs.add(r.y); yDivs.add(r.y + r.w); }
+      const xs = [...xDivs].sort((a,b) => a-b);
+      const ys = [...yDivs].sort((a,b) => a-b);
+      const roadXStarts = new Set(vRoads.map(r => r.x));
+      const roadYStarts = new Set(hRoads.map(r => r.y));
+
+      for (const r of vRoads) { cc.fillStyle = '#010101'; cc.fillRect(r.x, 0, r.w, H); }
+      for (const r of hRoads) { cc.fillStyle = '#010101'; cc.fillRect(0, r.y, W, r.w); }
+
+      cc.setLineDash([6, 9]); cc.lineWidth = 1;
+      for (const r of vRoads) {
+        if (r.w < 8) continue;
+        cc.strokeStyle = r.w >= 18 ? 'rgba(100,98,120,0.60)' : 'rgba(80,78,100,0.40)';
+        cc.beginPath(); cc.moveTo(r.x+r.w/2, 0); cc.lineTo(r.x+r.w/2, H); cc.stroke();
+      }
+      for (const r of hRoads) {
+        if (r.w < 8) continue;
+        cc.strokeStyle = r.w >= 18 ? 'rgba(100,98,120,0.60)' : 'rgba(80,78,100,0.40)';
+        cc.beginPath(); cc.moveTo(0, r.y+r.w/2); cc.lineTo(W, r.y+r.w/2); cc.stroke();
+      }
+      cc.setLineDash([]);
+
+      for (let i = 0; i < ys.length - 1; i++) {
+        const by = ys[i], bh = ys[i+1] - by;
+        if (roadYStarts.has(by) || bh < 2) continue;
+        for (let j = 0; j < xs.length - 1; j++) {
+          const bx = xs[j], bw = xs[j+1] - bx;
+          if (roadXStarts.has(bx) || bw < 2) continue;
+          splitBlock(cc, bx, by, bw, bh, rng);
+        }
+      }
+
+      nodes = []; adj = {};
+      for (let i = 0; i < hRoads.length; i++) {
+        for (let j = 0; j < vRoads.length; j++) {
+          const id = i * vRoads.length + j;
+          nodes[id] = { x: vRoads[j].x + vRoads[j].w/2, y: hRoads[i].y + hRoads[i].w/2 };
+          adj[id] = [];
+        }
+      }
+      for (let i = 0; i < hRoads.length; i++) {
+        for (let j = 0; j < vRoads.length; j++) {
+          const id = i * vRoads.length + j;
+          if (j+1 < vRoads.length) { const n=id+1; adj[id].push(n); adj[n].push(id); }
+          if (i+1 < hRoads.length) { const n=id+vRoads.length; adj[id].push(n); adj[n].push(id); }
+        }
+      }
+
+    }
+
+    function splitBlock(cc, x, y, w, h, rng) {
+      const area = w * h;
+      if (area < 200 || (w < 14 && h < 14)) { if (w>1&&h>1) drawBuilding(cc,x,y,w,h,rng); return; }
+      if (rng() < (area<900?0.38:area<3000?0.18:0.06)) { drawBuilding(cc,x,y,w,h,rng); return; }
+      const alleyW = area>3000 ? 4+Math.floor(rng()*2) : 2+Math.floor(rng()*2);
+      if (h>w && h>alleyW+14) {
+        const bias=0.22+rng()*0.56, split=Math.floor(h*bias);
+        if (split<6||h-split-alleyW<6) { drawBuilding(cc,x,y,w,h,rng); return; }
+        cc.fillStyle='#050506'; cc.fillRect(x,y+split,w,alleyW);
+        splitBlock(cc,x,y,w,split,rng); splitBlock(cc,x,y+split+alleyW,w,h-split-alleyW,rng);
+      } else if (w>alleyW+14) {
+        const bias=0.22+rng()*0.56, split=Math.floor(w*bias);
+        if (split<6||w-split-alleyW<6) { drawBuilding(cc,x,y,w,h,rng); return; }
+        cc.fillStyle='#050506'; cc.fillRect(x+split,y,alleyW,h);
+        splitBlock(cc,x,y,split,h,rng); splitBlock(cc,x+split+alleyW,y,w-split-alleyW,h,rng);
+      } else { drawBuilding(cc,x,y,w,h,rng); }
+    }
+
+    function drawBuilding(cc, x, y, w, h, rng) {
+      if (w<1||h<1) return;
+      const v=Math.floor(rng()*22), base=10+v;
+      cc.fillStyle=`rgb(${base},${base},${Math.min(base+5,40)})`;
+      cc.fillRect(x,y,w,h);
+      const hi=(0.04+v*0.002).toFixed(3);
+      cc.fillStyle=`rgba(255,255,255,${hi})`;
+      cc.fillRect(x,y,w,1); cc.fillRect(x,y,1,h);
+      cc.fillStyle='rgba(0,0,0,0.6)';
+      cc.fillRect(x,y+h-1,w,1); cc.fillRect(x+w-1,y,1,h);
+      // ── Airplane-view city lights — window clusters ──────────────────────
+      // Position-based LCG; never consumes shared rng
+      if (w >= 3 && h >= 3) {
+        let ws = (x * 1103515245 + y * 1664525 + 12345) >>> 0;
+        const wr = () => { ws = (ws * 1664525 + 1013904223) >>> 0; return ws / 0x100000000; };
+
+        const area = w * h;
+        // Larger buildings → more windows. ~8% get none (dark building).
+        const base = area > 400 ? 6 : area > 150 ? 4 : area > 60 ? 3 : 2;
+        const r0 = wr();
+        const numW = r0 < 0.08 ? 0 : Math.floor(base * (0.5 + r0));
+
+        for (let i = 0; i < numW; i++) {
+          const lx = x + 1 + Math.floor(wr() * Math.max(1, w - 2));
+          const ly = y + 1 + Math.floor(wr() * Math.max(1, h - 2));
+          // Window size: mostly 1×1, some 2×1 or 2×2 on bigger buildings
+          const ww = area > 200 && wr() < 0.55 ? 2 : 1;
+          const wh = area > 200 && wr() < 0.40 ? 2 : 1;
+          // Warm palette: deep amber → soft yellow-white
+          const tone = wr();
+          let r2, g2, b2, op;
+          if (tone < 0.50) {           // classic amber
+            r2 = 255; g2 = 170 + Math.floor(wr()*60); b2 = 30 + Math.floor(wr()*40);
+            op = 0.55 + wr() * 0.30;
+          } else if (tone < 0.78) {    // warm yellow
+            r2 = 255; g2 = 220 + Math.floor(wr()*35); b2 = 80 + Math.floor(wr()*60);
+            op = 0.45 + wr() * 0.30;
+          } else {                     // pale white-yellow (offices / fluorescent)
+            r2 = 240 + Math.floor(wr()*15); g2 = 235 + Math.floor(wr()*20); b2 = 180 + Math.floor(wr()*50);
+            op = 0.30 + wr() * 0.22;
+          }
+          cc.fillStyle = `rgba(${r2},${g2},${b2},${op.toFixed(2)})`;
+          cc.fillRect(lx, ly, ww, wh);
+        }
+
+        // Soft building-wide warm bloom for large lit buildings (aerial glow effect)
+        if (area > 300 && wr() < 0.60) {
+          const cx = x + w / 2, cy = y + h / 2;
+          const br = Math.max(w, h) * 0.7;
+          const grd = cc.createRadialGradient(cx, cy, 0, cx, cy, br);
+          grd.addColorStop(0,   `rgba(255,185,50,${(0.06 + wr()*0.06).toFixed(3)})`);
+          grd.addColorStop(0.5, `rgba(255,160,30,${(0.02 + wr()*0.02).toFixed(3)})`);
+          grd.addColorStop(1,   'rgba(255,130,20,0)');
+          cc.fillStyle = grd;
+          cc.fillRect(x, y, w, h);
+        }
+      }
+    }
+
+    /* ══════════════════════════════════════
+       CITY ENTITIES — cars only
+    ══════════════════════════════════════ */
+    function initEntities() {
+      entities = [];
+      const rng2 = mkRng(3131);
+
+      // Cars on wider roads (w >= 5)
+      const carRoads = [
+        ...hRoads.filter(r=>r.w>=5).map(r=>({axis:'h',center:r.y+r.w/2,w:r.w,len:W})),
+        ...vRoads.filter(r=>r.w>=5).map(r=>({axis:'v',center:r.x+r.w/2,w:r.w,len:H}))
+      ];
+      for (let i=0; i<22; i++) {
+        if (!carRoads.length) break;
+        const rd = carRoads[Math.floor(rng2()*carRoads.length)];
+        const dir = rng2()<0.5?1:-1;
+        entities.push({ type:'car', axis:rd.axis,
+          cross: rd.center + (rng2()-0.5)*rd.w*0.3,
+          p: rng2()*rd.len, max:rd.len,
+          speed:(0.6+rng2()*0.9)*dir,
+          cLen:5+rng2()*3, cWid:2.2+rng2()*1 });
+      }
+    }
+
+    function updateAndDrawEntities(dt) {
+      for (const e of entities) {
+        e.p += e.speed * dt;
+        if (e.p > e.max+12) e.p = -12;
+        if (e.p < -12)      e.p = e.max+12;
+
+        const px = e.axis==='h' ? e.p     : e.cross;
+        const py = e.axis==='h' ? e.cross : e.p;
+
+        ctx.save();
+        ctx.translate(px, py);
+        if (e.axis==='v') ctx.rotate(Math.PI/2);
+
+        // Body
+        ctx.fillStyle = 'rgba(52,46,70,0.90)';
+        ctx.fillRect(-e.cLen/2, -e.cWid/2, e.cLen, e.cWid);
+        // Roof highlight
+        ctx.fillStyle = 'rgba(68,60,90,0.75)';
+        ctx.fillRect(-e.cLen/2+1, -e.cWid/2+0.4, e.cLen*0.38, e.cWid-0.8);
+
+        // Yellow headlights at front end (dir = sign of speed)
+        const fd = e.speed > 0 ? 1 : -1;
+        const fx = (e.cLen/2 - 0.6) * fd;
+        ctx.shadowColor = 'rgba(255,220,80,0.7)';
+        ctx.shadowBlur = 4;
+        ctx.fillStyle = 'rgba(255,238,140,0.92)';
+        ctx.beginPath(); ctx.arc(fx, -e.cWid * 0.28, 0.75, 0, Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(fx,  e.cWid * 0.28, 0.75, 0, Math.PI*2); ctx.fill();
+        ctx.shadowBlur = 0;
+
+        ctx.restore();
+      }
+    }
+
+    /* ══════════════════════════════════════
+       BFS — hard-avoids used edges
+    ══════════════════════════════════════ */
+    function bfsPath(from, to) {
+      // Strict: skip used edges AND nodes that are stops of other trails.
+      // Returns null if no valid path exists.
+      if (from === to) return [from];
+      const prev  = new Map([[from, -1]]);
+      const queue = [from];
+      while (queue.length) {
+        const cur = queue.shift();
+        if (cur === to) break;
+        for (const nb of (adj[cur] || [])) {
+          if (prev.has(nb)) continue;
+          if (usedEdges.has(edgeKey(cur, nb))) continue;
+          // Don't route through any node of a previous trail (hard block)
+          if (nb !== to && usedPathNodes.has(nb)) continue;
+          prev.set(nb, cur); queue.push(nb);
+        }
+      }
+      if (!prev.has(to)) return null;
+      const path = []; let c = to;
+      while (c !== -1) { path.unshift(c); c = prev.get(c); }
+      return path;
+    }
+
+    /* ══════════════════════════════════════
+       CYCLE MANAGEMENT
+    ══════════════════════════════════════ */
+    function startCycle() {
+      completedTrails = [];
+      usedEdges       = new Set();
+      usedStopNodes   = new Set();
+      usedPathNodes   = new Set();
+      usedBBoxes      = [];
+      beeFlying       = false;
+      beeTween        = null;
+      cycleMaxTrails  = 14;
+      cycleTrailCount = 0;
+      fading = false; fadeAlpha = 1.0;
+      startNextTrail();
+    }
+
+    function safeNodes() {
+      const ex1=W*0.06, ex2=W*0.94, ey1=H*0.06, ey2=H*0.94;
+      const pool = nodes.map((_,i)=>i).filter(i => {
+        const n = nodes[i];
+        return n.x>ex1&&n.x<ex2&&n.y>ey1&&n.y<ey2;
+      });
+      return pool.length >= 4 ? pool : nodes.map((_,i)=>i);
+    }
+
+    function startNextTrail() {
+      if (nodes.length < 2) return;
+      const pool = safeNodes().filter(i => !usedStopNodes.has(i) && !usedPathNodes.has(i));
+      const src  = pool.length >= 4 ? pool : safeNodes();
+
+      // All stops must stay within 10% of canvas from the start — keeps trail compact
+      const radius = Math.min(W, H) * 0.20;
+      // Soft-avoid hero text zone for stop placement
+      const tx1=W*0.30, tx2=W*0.70, ty1=H*0.28, ty2=H*0.70;
+      const inText = i => { const n=nodes[i]; return n.x>tx1&&n.x<tx2&&n.y>ty1&&n.y<ty2; };
+
+      // Start must fall outside every previous trail's bounding rectangle
+      const outsideBBoxes = i => {
+        const n = nodes[i];
+        return usedBBoxes.every(b => n.x < b.x1 || n.x > b.x2 || n.y < b.y1 || n.y > b.y2);
+      };
+      let startPool = src.filter(i => !inText(i) && outsideBBoxes(i));
+      if (startPool.length < 2) startPool = src.filter(i => outsideBBoxes(i));
+      if (startPool.length < 2) startPool = src.filter(i => !inText(i));
+      let startCands = startPool.length >= 2 ? startPool : src;
+
+      // Trail 0 → start at the node closest to bee spawn ("e" of AroundBee)
+      // Trail 1+ → prefer a ring hugging just outside the text zone
+      let startNode;
+      if (cycleTrailCount === 0 && beeVisible) {
+        startNode = startCands.reduce((best, i) => {
+          const n = nodes[i], dx = n.x - beeX, dy = n.y - beeY;
+          const d2 = dx*dx + dy*dy;
+          return (best.d2 === undefined || d2 < best.d2) ? { i, d2 } : best;
+        }, {}).i;
+        startNode = startNode !== undefined ? startNode : startCands[0];
+      } else {
+        // Ring preference: within 14% margin of text zone, not inside it
+        const rw = W * 0.14, rh = H * 0.14;
+        const inRing = i => {
+          const n = nodes[i];
+          return (n.x > tx1-rw && n.x < tx2+rw && n.y > ty1-rh && n.y < ty2+rh)
+              && !(n.x > tx1 && n.x < tx2 && n.y > ty1 && n.y < ty2);
+        };
+        const rp = startCands.filter(i => inRing(i));
+        const pool = rp.length >= 1 ? rp : startCands;
+        startNode = pool[Math.floor(Math.random() * pool.length)];
+      }
+      const origin = nodes[startNode];
+
+      // All other stops: within radius of start, unused, prefer outside text zone
+      const numStops = 2 + Math.floor(Math.random() * 2); // 2–3 total
+      const stopNodes = [startNode];
+      const usedLocal = new Set([startNode]);
+
+      for (let s = 1; s < numStops; s++) {
+        const inRange = src.filter(i => {
+          if (usedLocal.has(i) || usedStopNodes.has(i)) return false;
+          const nd=nodes[i], dx=nd.x-origin.x, dy=nd.y-origin.y;
+          return Math.sqrt(dx*dx+dy*dy) <= radius;
         });
-    </script>
+        const outside = inRange.filter(i => !inText(i));
+        const cands   = outside.length >= 1 ? outside : inRange;
+        if (!cands.length) break;
+        const n = cands[Math.floor(Math.random() * cands.length)];
+        usedLocal.add(n); stopNodes.push(n);
+      }
+      if (stopNodes.length < 2) {
+        cycleTrailCount++; if (cycleTrailCount>=cycleMaxTrails){fading=true;} else phaseTimeout=setTimeout(startNextTrail,300); return;
+      }
+
+      // Build path — strict BFS, no fallback to used edges
+      let fullPath = []; const stopIndices = [];
+      for (let s = 0; s < stopNodes.length - 1; s++) {
+        const seg = bfsPath(stopNodes[s], stopNodes[s+1]);
+        if (!seg || seg.length < 2) {
+          cycleTrailCount++; if (cycleTrailCount>=cycleMaxTrails){fading=true;} else phaseTimeout=setTimeout(startNextTrail,300); return;
+        }
+        if (s === 0) { fullPath = fullPath.concat(seg); stopIndices.push(0); }
+        else          { fullPath = fullPath.concat(seg.slice(1)); }
+        stopIndices.push(fullPath.length - 1);
+      }
+
+      const sn = nodes[fullPath[0]], en = nodes[fullPath[fullPath.length - 1]];
+      dotX = sn.x; dotY = sn.y;
+      activeTrail = { fullPath, stopIndices, segIdx:0, segProgress:0,
+                      reachedStops:[{ x:sn.x, y:sn.y, t:Date.now() }], segs:[] };
+      paused = false;
+
+      if (beeVisible) {
+        if (cycleTrailCount === 0) {
+          // Bee flies from the "e" to the first trail start
+          beeTween  = { x0:beeX, y0:beeY, x1:dotX, y1:dotY, t0:performance.now(), dur:600 };
+          beeFlying = true;
+          // beeSpawnT already set — don't override (pop-in already played on the "e")
+        } else {
+          // Each subsequent trail: new bee pops in at trail start instantly
+          beeX = dotX; beeY = dotY;
+          beeSpawnT = performance.now();
+          beeAngle  = -Math.PI / 2;
+        }
+      }
+    }
+
+    function trailComplete() {
+      const fp = activeTrail.fullPath;
+      for (let i = 0; i < fp.length-1; i++) usedEdges.add(edgeKey(fp[i], fp[i+1]));
+      for (const idx of activeTrail.stopIndices) usedStopNodes.add(fp[idx]);
+      for (const n of fp) usedPathNodes.add(n); // block every node this trail touched
+
+      // Record bounding rectangle of this trail (with padding) so the next trail spawns outside it
+      const pad = Math.min(W, H) * 0.20;
+      let bx1=Infinity,by1=Infinity,bx2=-Infinity,by2=-Infinity;
+      for (const n of fp) {
+        const nd=nodes[n]; bx1=Math.min(bx1,nd.x); bx2=Math.max(bx2,nd.x);
+                           by1=Math.min(by1,nd.y); by2=Math.max(by2,nd.y);
+      }
+      usedBBoxes.push({ x1:bx1-pad, y1:by1-pad, x2:bx2+pad, y2:by2+pad });
+
+      // Guarantee start and end circles are always present
+      const startN = nodes[fp[0]], endN = nodes[fp[fp.length-1]];
+      const rs = activeTrail.reachedStops;
+      if (!rs.some(s => s.x===startN.x && s.y===startN.y)) rs.unshift({ x:startN.x, y:startN.y, t:Date.now() });
+      if (!rs.some(s => s.x===endN.x   && s.y===endN.y))   rs.push({ x:endN.x, y:endN.y, t:Date.now() });
+
+      completedTrails.push({ segs:activeTrail.segs.slice(), stopPts:rs.slice(), alpha:1.0 });
+      activeTrail = null; cycleTrailCount++;
+      if (cycleTrailCount >= cycleMaxTrails) { fading = true; }
+      else { phaseTimeout = setTimeout(startNextTrail, 500); }
+    }
+
+    /* ══════════════════════════════════════
+       DRAW LOOP
+    ══════════════════════════════════════ */
+    function pushTrailClip() {
+      ctx.save();
+    }
+
+    let _lastTs = 0;
+
+    function draw(ts) {
+      const dt = (_lastTs && ts) ? Math.min((ts - _lastTs) / 16.67, 3.0) : 1.0;
+      _lastTs = ts || performance.now();
+
+      ctx.clearRect(0, 0, W, H);
+      ctx.drawImage(cityCanvas, 0, 0, W, H);
+      updateAndDrawEntities(dt);
+      ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+
+      if (fading) {
+        fadeAlpha -= 0.004 * dt;
+        if (fadeAlpha <= 0) { startCycle(); animFrame = requestAnimationFrame(draw); return; }
+        pushTrailClip();
+        for (const t of completedTrails) drawTrailData(t.segs, t.alpha * fadeAlpha);
+        ctx.restore();
+        drawAllStopDots(fadeAlpha);
+        animFrame = requestAnimationFrame(draw); return;
+      }
+
+      pushTrailClip();
+      for (const t of completedTrails) drawTrailData(t.segs, t.alpha);
+
+      if (activeTrail) {
+        const fp = activeTrail.fullPath;
+        let si = activeTrail.segIdx;
+
+        // Resolve pause
+        if (paused && Date.now() >= pauseUntil) paused = false;
+
+        // Advance animation one step
+        let trailDone = false;
+        if (!paused && !beeFlying && si < fp.length - 1) {
+          const fn = nodes[fp[si]], tn = nodes[fp[si+1]];
+          const dx = tn.x-fn.x, dy = tn.y-fn.y;
+          const segLen = Math.sqrt(dx*dx+dy*dy) || 1;
+          // Update bee facing direction
+          if (dx !== 0 || dy !== 0) beeAngle = Math.atan2(dy, dx) + Math.PI / 2;
+          activeTrail.segProgress += (3.5 * dt) / segLen;
+          if (activeTrail.segProgress >= 1) {
+            activeTrail.segs.push({ x1:fn.x,y1:fn.y,x2:tn.x,y2:tn.y });
+            activeTrail.segIdx++; activeTrail.segProgress = 0;
+            si = activeTrail.segIdx;
+            dotX = tn.x; dotY = tn.y;
+            if (activeTrail.stopIndices.includes(si)) {
+              activeTrail.reachedStops.push({ x:tn.x, y:tn.y, t:Date.now() });
+              paused = true; pauseUntil = Date.now() + 300;
+            }
+            if (si >= fp.length - 1) {
+              if (!activeTrail.reachedStops.some(s => s.x===tn.x&&s.y===tn.y))
+                activeTrail.reachedStops.push({ x:tn.x, y:tn.y, t:Date.now() });
+              phaseTimeout = setTimeout(trailComplete, 300);
+              trailDone = true;
+            }
+          } else {
+            dotX = nodes[fp[si]].x + dx*activeTrail.segProgress;
+            dotY = nodes[fp[si]].y + dy*activeTrail.segProgress;
+          }
+        }
+
+        const isMoving = !paused && !trailDone && si < fp.length - 1 && activeTrail.segProgress > 0;
+
+        // Completed segments of active trail — plain purple (no glow)
+        drawTrailData(activeTrail.segs, 1.0);
+
+        // Leading partial segment — glow travels with the bee
+        if (isMoving) {
+          const fn = nodes[fp[si]];
+          drawLeadingGlow([{ x1:fn.x, y1:fn.y, x2:dotX, y2:dotY }], 1.0);
+        }
+      }
+
+      // Update bee tween (trail-0 fly-in from "e" to first trail start)
+      if (beeTween) {
+        const p  = Math.min((ts - beeTween.t0) / beeTween.dur, 1.0);
+        const ep = p < 1 ? p * p * (3 - 2 * p) : 1; // smoothstep
+        const tdx = beeTween.x1 - beeTween.x0, tdy = beeTween.y1 - beeTween.y0;
+        if (tdx !== 0 || tdy !== 0) beeAngle = Math.atan2(tdy, tdx) + Math.PI / 2;
+        beeX = beeTween.x0 + tdx * ep;
+        beeY = beeTween.y0 + tdy * ep;
+        if (p >= 1) { beeX = beeTween.x1; beeY = beeTween.y1; beeTween = null; beeFlying = false; }
+      } else if (activeTrail && !beeFlying) {
+        beeX = dotX; beeY = dotY;
+      }
+
+      if (beeVisible) drawBee(beeX, beeY, beeAngle, ts);
+
+      ctx.restore();
+      drawAllStopDots(1.0);
+      animFrame = requestAnimationFrame(draw);
+    }
+
+    // Plain purple — completed trails and already-drawn segments of active trail
+    function drawTrailData(segs, alpha) {
+      if (!segs.length || alpha <= 0) return;
+      ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      ctx.beginPath();
+      ctx.moveTo(segs[0].x1, segs[0].y1);
+      for (const s of segs) { ctx.lineTo(s.x2, s.y2); }
+      ctx.strokeStyle = `rgba(220,80,253,${alpha.toFixed(3)})`;
+      ctx.lineWidth   = 2.5;
+      ctx.shadowBlur  = 0;
+      ctx.stroke();
+    }
+
+    // Glow — only for the leading segment being drawn right now
+    function drawLeadingGlow(segs, alpha) {
+      if (!segs.length || alpha <= 0) return;
+      ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      ctx.beginPath();
+      ctx.moveTo(segs[0].x1, segs[0].y1);
+      for (const s of segs) { ctx.lineTo(s.x2, s.y2); }
+      // Halo
+      ctx.strokeStyle = `rgba(175,10,215,${(alpha*0.30).toFixed(3)})`;
+      ctx.lineWidth   = 8;
+      ctx.shadowColor = `rgba(213,36,253,${(alpha*0.55).toFixed(3)})`;
+      ctx.shadowBlur  = 18;
+      ctx.stroke();
+      // Mid
+      ctx.strokeStyle = `rgba(205,55,255,${(alpha*0.45).toFixed(3)})`;
+      ctx.lineWidth   = 6;
+      ctx.shadowBlur  = 8;
+      ctx.stroke();
+      // Core
+      ctx.strokeStyle = `rgba(232,120,255,${alpha.toFixed(3)})`;
+      ctx.lineWidth   = 2.5;
+      ctx.shadowColor = `rgba(238,130,255,${(alpha*0.6).toFixed(3)})`;
+      ctx.shadowBlur  = 4;
+      ctx.stroke();
+      ctx.shadowBlur  = 0;
+    }
+
+    function drawAllStopDots(alphaScale) {
+      for (const t of completedTrails) {
+        for (const p of t.stopPts) drawStopPin(p.x, p.y, t.alpha * alphaScale, p.t);
+      }
+      if (activeTrail) {
+        for (const p of activeTrail.reachedStops) drawStopPin(p.x, p.y, alphaScale, p.t);
+      }
+    }
+
+    function drawBee(x, y, angle, ts) {
+      const R = 9;
+      const wing = Math.abs(Math.sin(ts * 0.032)); // wing flutter 0→1
+      // Pop-in scale: 0 → 1 over 220ms when bee first appears
+      const age = beeSpawnT ? ts - beeSpawnT : 9999;
+      const sc  = age < 220 ? age / 220 : 1.0;
+
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+      ctx.scale(sc, sc);
+
+      // Soft purple aura
+      const aura = ctx.createRadialGradient(0, 0, 0, 0, 0, R * 3.8);
+      aura.addColorStop(0, 'rgba(220,80,253,0.30)');
+      aura.addColorStop(1, 'rgba(213,36,253,0)');
+      ctx.fillStyle = aura;
+      ctx.beginPath(); ctx.arc(0, 0, R * 3.8, 0, Math.PI * 2); ctx.fill();
+
+      ctx.shadowColor = 'rgba(213,36,253,0.85)';
+      ctx.shadowBlur  = 14;
+
+      // Wings — flutter via scaleY
+      ctx.save();
+      ctx.scale(1, 0.40 + wing * 0.60);
+      ctx.fillStyle = 'rgba(245,180,254,0.82)';
+      ctx.beginPath(); ctx.ellipse(-R*0.78, -R*1.05, R*0.68, R*1.10,  -0.22, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse( R*0.78, -R*1.05, R*0.68, R*1.10,   0.22, 0, Math.PI*2); ctx.fill();
+      ctx.restore();
+
+      // Abdomen
+      ctx.fillStyle = 'rgba(213,36,253,1)';
+      ctx.beginPath(); ctx.ellipse(0, R*0.28, R*0.72, R*1.0, 0, 0, Math.PI*2); ctx.fill();
+
+      // White stripes on abdomen
+      ctx.fillStyle = 'rgba(255,255,255,0.38)';
+      ctx.fillRect(-R*0.72,  R*0.02, R*1.44, R*0.30);
+      ctx.fillRect(-R*0.72,  R*0.52, R*1.44, R*0.30);
+
+      // Head
+      ctx.fillStyle = 'rgba(213,36,253,1)';
+      ctx.beginPath(); ctx.arc(0, -R*0.82, R*0.58, 0, Math.PI*2); ctx.fill();
+
+      // Eyes
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = '#fff';
+      ctx.beginPath(); ctx.arc(-R*0.23, -R*0.92, R*0.19, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc( R*0.23, -R*0.92, R*0.19, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = 'rgba(20,5,50,0.85)';
+      ctx.beginPath(); ctx.arc(-R*0.23, -R*0.92, R*0.09, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc( R*0.23, -R*0.92, R*0.09, 0, Math.PI*2); ctx.fill();
+
+      // Antennae
+      ctx.strokeStyle = 'rgba(235,140,254,0.92)';
+      ctx.lineWidth = 0.85; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(-R*0.22, -R*1.36); ctx.lineTo(-R*0.62, -R*2.08); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo( R*0.22, -R*1.36); ctx.lineTo( R*0.62, -R*2.08); ctx.stroke();
+      ctx.fillStyle = 'rgba(245,180,254,1)';
+      ctx.beginPath(); ctx.arc(-R*0.62, -R*2.08, R*0.21, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc( R*0.62, -R*2.08, R*0.21, 0, Math.PI*2); ctx.fill();
+
+      ctx.restore();
+    }
+
+    function drawStopPin(x, y, alpha, t) {
+      // Damped wiggle on arrival
+      const elapsed = t ? (Date.now() - t) / 1000 : 99;
+      const wiggle  = elapsed < 1.6
+        ? 0.30 * Math.sin(elapsed * 18) * Math.exp(-elapsed * 3.2)
+        : 0;
+
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(wiggle);
+
+      const R  = 6.05;
+      const cy = -R * 2.1; // circle centre above tip
+
+      ctx.shadowColor = `rgba(213,36,253,${(alpha*0.65).toFixed(2)})`;
+      ctx.shadowBlur  = 16;
+      ctx.fillStyle   = `rgba(213,36,253,${alpha.toFixed(2)})`;
+
+      // Classic teardrop pin: bezier up both sides, arc over top
+      ctx.beginPath();
+      ctx.moveTo(0, 0);                                                   // tip
+      ctx.bezierCurveTo(-R*0.4, cy+R*1.6, -R*1.4, cy+R*0.7, -R, cy);   // left curve
+      ctx.arc(0, cy, R, Math.PI, 0, false);                              // top arc L→R
+      ctx.bezierCurveTo(R*1.4, cy+R*0.7, R*0.4, cy+R*1.6, 0, 0);       // right curve
+      ctx.fill();
+
+      // White inner dot
+      ctx.shadowBlur  = 4;
+      ctx.fillStyle   = `rgba(255,255,255,${(alpha*0.92).toFixed(2)})`;
+      ctx.beginPath(); ctx.arc(0, cy, R*0.38, 0, Math.PI*2); ctx.fill();
+
+      ctx.shadowBlur = 0;
+      ctx.restore();
+    }
+
+    setup();
+    animFrame = requestAnimationFrame(draw);
+    window.addEventListener('resize', () => {
+      cancelAnimationFrame(animFrame); clearTimeout(phaseTimeout);
+      setup(); animFrame = requestAnimationFrame(draw);
+    });
+  })();
+
+
+
+
+
+  /* ──────────────────────────────────────────
+     AROUNDBEE TITLE ANIMATION
+     Letters reveal one by one
+  ────────────────────────────────────────── */
+  (function () {
+    const titleEl = document.getElementById('hero-title');
+    const text    = 'AroundBee';
+    const purple  = [6, 7, 8]; // indices of B,e,e
+
+    text.split('').forEach((char, i) => {
+      const span = document.createElement('span');
+      span.className = 'char' + (purple.includes(i) ? ' purple' : '');
+      span.style.animationDelay = (0.4 + i * 0.07) + 's';
+      span.textContent = char === ' ' ? ' ' : char;
+
+      titleEl.appendChild(span);
+    });
+  })();
+
+
+  /* ──────────────────────────────────────────
+     SCROLL FADE-IN
+  ────────────────────────────────────────── */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+
+
+  /* ── FORM ── */
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const input = document.getElementById('phone-input-pilot');
+    const btn   = document.getElementById('submit-btn');
+
+    if (!input || input.value.trim().length < 8) {
+      input.style.outline = '2px solid rgba(239,68,68,0.6)';
+      setTimeout(() => input.style.outline = '', 2000);
+      return;
+    }
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('https://formspree.io/f/xzdwwzqn', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ phone: input.value.trim() })
+      });
+
+      if (res.ok) {
+        e.target.style.display = 'none';
+        document.getElementById('form-msg-pilot').style.display = 'block';
+      } else {
+        btn.textContent = 'Try again';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Try again';
+      btn.disabled = false;
+    }
+  }
+  </script>
 </body>
 </html>
