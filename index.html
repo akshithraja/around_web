@@ -632,18 +632,44 @@
       .team-name { font-size: 14px; }
       .team-role { font-size: 11px; }
 
-      .metric-banner { padding: 80px 20px; }
-      .metric-desc { font-size: 15px; }
+      .metric-banner { padding: 64px 24px; }
+      .metric-desc { font-size: 14px; max-width: 280px; margin-bottom: 28px; }
 
       .pilot-form-wrap {
         flex-direction: column;
-        border-radius: 16px;
-        padding: 16px;
+        background: none;
+        border: none;
+        border-radius: 0;
+        padding: 0;
         align-items: stretch;
         gap: 12px;
+        box-shadow: none;
+        max-width: 320px;
       }
-      .pilot-form-wrap input { padding: 8px 0; font-size: 16px; }
-      .pilot-form-wrap .btn-pill { border-radius: 100px; padding: 14px 24px; font-size: 15px; text-align: center; }
+      .pilot-form-wrap:focus-within { box-shadow: none; }
+      .pilot-form-wrap input {
+        padding: 16px 20px;
+        font-size: 18px;
+        background: rgba(255,255,255,0.06);
+        border: 1.5px solid rgba(213,36,253,0.4);
+        border-radius: 14px;
+        color: #fff;
+        text-align: center;
+        letter-spacing: 0.04em;
+      }
+      .pilot-form-wrap input:focus { border-color: rgba(213,36,253,0.9); outline: none; background: rgba(213,36,253,0.06); }
+      .pilot-form-wrap .btn-pill {
+        border-radius: 100px;
+        padding: 12px 24px;
+        font-size: 14px;
+        font-weight: 600;
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.18);
+        color: rgba(255,255,255,0.7);
+        box-shadow: none;
+        text-align: center;
+      }
+      .pilot-form-wrap .btn-pill:hover { background: var(--purple); border-color: var(--purple); color: #fff; }
 
       .pilot-stats-strip { gap: 20px; flex-wrap: wrap; justify-content: center; }
       .pilot-stat-item + .pilot-stat-item { padding-left: 0 !important; }
