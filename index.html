@@ -1204,11 +1204,17 @@
       startNextTrail();
     }
 
+    function isMobile() { return W <= 768; }
+
     function safeNodes() {
       const ex1=W*0.06, ex2=W*0.94, ey1=H*0.06, ey2=H*0.94;
+      // On mobile, hard-exclude the center band where hero text lives
+      const mz1 = H * 0.30, mz2 = H * 0.72;
       const pool = nodes.map((_,i)=>i).filter(i => {
         const n = nodes[i];
-        return n.x>ex1&&n.x<ex2&&n.y>ey1&&n.y<ey2;
+        if (!( n.x>ex1&&n.x<ex2&&n.y>ey1&&n.y<ey2 )) return false;
+        if (isMobile() && n.y > mz1 && n.y < mz2) return false;
+        return true;
       });
       return pool.length >= 4 ? pool : nodes.map((_,i)=>i);
     }
@@ -1219,9 +1225,12 @@
       const src  = pool.length >= 4 ? pool : safeNodes();
 
       // All stops must stay within 10% of canvas from the start — keeps trail compact
-      const radius = Math.min(W, H) * 0.20;
-      // Soft-avoid hero text zone for stop placement
-      const tx1=W*0.30, tx2=W*0.70, ty1=H*0.28, ty2=H*0.70;
+      const radius = Math.min(W, H) * (isMobile() ? 0.14 : 0.20);
+      // Hard-exclude hero text zone for stop placement; wider on mobile
+      const tx1 = isMobile() ? W*0.00 : W*0.30;
+      const tx2 = isMobile() ? W*1.00 : W*0.70;
+      const ty1 = isMobile() ? H*0.30 : H*0.28;
+      const ty2 = isMobile() ? H*0.72 : H*0.70;
       const inText = i => { const n=nodes[i]; return n.x>tx1&&n.x<tx2&&n.y>ty1&&n.y<ty2; };
 
       // Start must fall outside every previous trail's bounding rectangle
@@ -1245,14 +1254,24 @@
         }, {}).i;
         startNode = startNode !== undefined ? startNode : startCands[0];
       } else {
-        // Ring preference: within 14% margin of text zone, not inside it
-        const rw = W * 0.14, rh = H * 0.14;
-        const inRing = i => {
-          const n = nodes[i];
-          return (n.x > tx1-rw && n.x < tx2+rw && n.y > ty1-rh && n.y < ty2+rh)
-              && !(n.x > tx1 && n.x < tx2 && n.y > ty1 && n.y < ty2);
-        };
-        const rp = startCands.filter(i => inRing(i));
+        // On mobile: prefer nodes in top or bottom band; on desktop: ring around text
+        let rp;
+        if (isMobile()) {
+          const topBand    = i => nodes[i].y < H * 0.30;
+          const bottomBand = i => nodes[i].y > H * 0.72;
+          // Alternate between top and bottom based on trail count
+          const preferred = cycleTrailCount % 2 === 0 ? topBand : bottomBand;
+          rp = startCands.filter(i => preferred(i));
+          if (rp.length < 1) rp = startCands.filter(i => topBand(i) || bottomBand(i));
+        } else {
+          const rw = W * 0.14, rh = H * 0.14;
+          const inRing = i => {
+            const n = nodes[i];
+            return (n.x > tx1-rw && n.x < tx2+rw && n.y > ty1-rh && n.y < ty2+rh)
+                && !(n.x > tx1 && n.x < tx2 && n.y > ty1 && n.y < ty2);
+          };
+          rp = startCands.filter(i => inRing(i));
+        }
         const pool = rp.length >= 1 ? rp : startCands;
         startNode = pool[Math.floor(Math.random() * pool.length)];
       }
