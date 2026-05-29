@@ -1164,9 +1164,7 @@
     /* ══════════════════════════════════════
        BFS — hard-avoids used edges
     ══════════════════════════════════════ */
-    function bfsPath(from, to) {
-      // Strict: skip used edges AND nodes that are stops of other trails.
-      // Returns null if no valid path exists.
+    function bfsPathRaw(from, to) {
       if (from === to) return [from];
       const prev  = new Map([[from, -1]]);
       const queue = [from];
@@ -1176,7 +1174,6 @@
         for (const nb of (adj[cur] || [])) {
           if (prev.has(nb)) continue;
           if (usedEdges.has(edgeKey(cur, nb))) continue;
-          // Don't route through any node of a previous trail (hard block)
           if (nb !== to && usedPathNodes.has(nb)) continue;
           prev.set(nb, cur); queue.push(nb);
         }
@@ -1185,6 +1182,45 @@
       const path = []; let c = to;
       while (c !== -1) { path.unshift(c); c = prev.get(c); }
       return path;
+    }
+
+    function isStraight(path) {
+      if (path.length < 3) return true;
+      const vl = vRoads.length;
+      const firstRow = Math.floor(path[0] / vl), firstCol = path[0] % vl;
+      const allSameRow = path.every(id => Math.floor(id / vl) === firstRow);
+      const allSameCol = path.every(id => id % vl === firstCol);
+      return allSameRow || allSameCol;
+    }
+
+    function bfsPath(from, to) {
+      const direct = bfsPathRaw(from, to);
+      if (!direct) return null;
+      if (!isStraight(direct)) return direct;
+
+      // Path is straight — try routing via a waypoint that forces a bend
+      const vl = vRoads.length;
+      const fromRow = Math.floor(from / vl), fromCol = from % vl;
+      const toRow   = Math.floor(to   / vl), toCol   = to   % vl;
+
+      // Pick a waypoint at (toRow, fromCol) or (fromRow, toCol) — the L-bend corners
+      const candidates = [
+        toRow   * vl + fromCol,
+        fromRow * vl + toCol,
+      ].filter(wp => wp !== from && wp !== to && wp >= 0 && wp < nodes.length
+                  && !usedStopNodes.has(wp) && !usedPathNodes.has(wp));
+
+      for (const wp of candidates) {
+        const seg1 = bfsPathRaw(from, wp);
+        if (!seg1 || seg1.length < 2) continue;
+        const seg2 = bfsPathRaw(wp, to);
+        if (!seg2 || seg2.length < 2) continue;
+        const bent = seg1.concat(seg2.slice(1));
+        if (!isStraight(bent)) return bent;
+      }
+
+      // No bent path found — fall back to direct
+      return direct;
     }
 
     /* ══════════════════════════════════════
