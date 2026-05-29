@@ -258,7 +258,12 @@
       z-index: 2;
       opacity: 0;
       animation: fadeUp 0.6s ease forwards 3s;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s ease;
     }
+
+    .hero-scroll:hover { color: var(--purple-bright); }
 
     .scroll-arrow-wrap { animation: bounceY 2s ease-in-out infinite; }
 
@@ -736,9 +741,9 @@
       </div>
     </div>
 
-    <div class="hero-scroll">
+    <a href="#team" class="hero-scroll" aria-label="Scroll to team section">
       <div class="scroll-arrow-wrap"><div class="scroll-arrow"></div></div>
-    </div>
+    </a>
   </section>
 
 
