@@ -1,8 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 150" width="130" height="150" role="img" aria-label="AroundBee">
-  <title>AroundBee — ring as bee head</title>
-  <path d="M 51 37 Q 47 27 44 23" fill="none" stroke="#C200DA" stroke-width="6" stroke-linecap="round"></path>
-  <path d="M 79 37 Q 83 27 86 23" fill="none" stroke="#C200DA" stroke-width="6" stroke-linecap="round"></path>
-  <circle cx="44" cy="23" r="5" fill="#C200DA"></circle>
-  <circle cx="86" cy="23" r="5" fill="#C200DA"></circle>
-  <circle cx="65" cy="92" r="44" fill="none" stroke="#C200DA" stroke-width="11"></circle>
+<svg width="130" height="150" viewBox="0 0 130 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M51 37C48.3333 30.3333 46 25.6667 44 23" stroke="#D99A1E" stroke-width="6" stroke-linecap="round"/>
+<path d="M79 37C81.6667 30.3333 84 25.6667 86 23" stroke="#D99A1E" stroke-width="6" stroke-linecap="round"/>
+<path d="M44 28C46.7614 28 49 25.7614 49 23C49 20.2386 46.7614 18 44 18C41.2386 18 39 20.2386 39 23C39 25.7614 41.2386 28 44 28Z" fill="#D99A1E"/>
+<path d="M86 28C88.7614 28 91 25.7614 91 23C91 20.2386 88.7614 18 86 18C83.2386 18 81 20.2386 81 23C81 25.7614 83.2386 28 86 28Z" fill="#D99A1E"/>
+<path d="M65 136C89.3005 136 109 116.301 109 92C109 67.6995 89.3005 48 65 48C40.6995 48 21 67.6995 21 92C21 116.301 40.6995 136 65 136Z" stroke="#D99A1E" stroke-width="11"/>
 </svg>
