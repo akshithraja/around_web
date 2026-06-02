@@ -1459,6 +1459,10 @@
       if (goCount) goCount.textContent = game.score;
       const go = document.getElementById('game-over');
       if (go) go.classList.add('show');
+      // Hide HUD and restore normal cursor — game is done
+      const hud = document.getElementById('game-hud');
+      if (hud) hud.classList.remove('show');
+      document.getElementById('hero').classList.remove('game-on');
     }
 
     /* ── HUD ── */
