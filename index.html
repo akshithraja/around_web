@@ -1480,54 +1480,36 @@
       el.classList.toggle('low', s <= 30);
     }
 
-    /* ── Splat sound — layered wet splash ── */
+    /* ── Splat sound — soft synthesized squelch ── */
     function playSplat() {
       try {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         if (audioCtx.state === 'suspended') audioCtx.resume();
         const t = audioCtx.currentTime;
-        const sr = audioCtx.sampleRate;
 
-        // 1. Sharp crack — very fast high→mid pitch punch on impact
-        const crack = audioCtx.createOscillator(), crackG = audioCtx.createGain();
-        crack.type = 'square';
-        crack.frequency.setValueAtTime(900, t);
-        crack.frequency.exponentialRampToValueAtTime(160, t + 0.04);
-        crackG.gain.setValueAtTime(0.0001, t);
-        crackG.gain.exponentialRampToValueAtTime(0.28, t + 0.006);
-        crackG.gain.exponentialRampToValueAtTime(0.0001, t + 0.055);
-        crack.connect(crackG).connect(audioCtx.destination);
-        crack.start(t); crack.stop(t + 0.06);
+        // Low pitched-down "thunk"
+        const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+        o.type = 'sine';
+        o.frequency.setValueAtTime(430, t);
+        o.frequency.exponentialRampToValueAtTime(90, t + 0.12);
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.20, t + 0.012);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 0.18);
+        o.connect(g).connect(audioCtx.destination);
+        o.start(t); o.stop(t + 0.2);
 
-        // 2. Wet splat — wide noise burst, feels like hitting something soft
-        const splatDur = 0.18;
-        const splatBuf = audioCtx.createBuffer(1, Math.floor(sr * splatDur), sr);
-        const splatData = splatBuf.getChannelData(0);
-        for (let i = 0; i < splatData.length; i++) {
-          const env = Math.pow(1 - i / splatData.length, 1.4);
-          splatData[i] = (Math.random() * 2 - 1) * env;
-        }
-        const splatSrc = audioCtx.createBufferSource(); splatSrc.buffer = splatBuf;
-        // Two-stage filter: lowpass keeps it meaty, then mild bandpass for the squish
-        const lp = audioCtx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2800; lp.Q.value = 0.6;
-        const bp = audioCtx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 900; bp.Q.value = 0.5;
-        const splatG = audioCtx.createGain();
-        splatG.gain.setValueAtTime(0.0001, t);
-        splatG.gain.exponentialRampToValueAtTime(0.42, t + 0.008);
-        splatG.gain.exponentialRampToValueAtTime(0.0001, t + splatDur);
-        splatSrc.connect(lp).connect(bp).connect(splatG).connect(audioCtx.destination);
-        splatSrc.start(t); splatSrc.stop(t + splatDur);
-
-        // 3. Low body thud — pitched-down sine for satisfying weight
-        const thud = audioCtx.createOscillator(), thudG = audioCtx.createGain();
-        thud.type = 'sine';
-        thud.frequency.setValueAtTime(320, t);
-        thud.frequency.exponentialRampToValueAtTime(55, t + 0.14);
-        thudG.gain.setValueAtTime(0.0001, t);
-        thudG.gain.exponentialRampToValueAtTime(0.30, t + 0.010);
-        thudG.gain.exponentialRampToValueAtTime(0.0001, t + 0.20);
-        thud.connect(thudG).connect(audioCtx.destination);
-        thud.start(t); thud.stop(t + 0.22);
+        // Wet noise squelch
+        const dur = 0.12;
+        const buf = audioCtx.createBuffer(1, Math.floor(audioCtx.sampleRate * dur), audioCtx.sampleRate);
+        const data = buf.getChannelData(0);
+        for (let i = 0; i < data.length; i++) data[i] = (Math.random()*2-1) * Math.pow(1 - i/data.length, 2);
+        const n  = audioCtx.createBufferSource(); n.buffer = buf;
+        const nf = audioCtx.createBiquadFilter(); nf.type = 'bandpass'; nf.frequency.value = 1100; nf.Q.value = 0.8;
+        const ng = audioCtx.createGain();
+        ng.gain.setValueAtTime(0.16, t);
+        ng.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+        n.connect(nf).connect(ng).connect(audioCtx.destination);
+        n.start(t); n.stop(t + dur);
       } catch (e) { /* audio unavailable — game still works */ }
     }
 
@@ -1671,18 +1653,12 @@
     // Plastic spatula drawn at the cursor; swings on click, lights up when armed
     function drawSpatula(x, y, ts) {
       const since = ts - lastSwingT;
-      // Damped spring: fast swing forward, elastic overshoot, snaps back — 110ms total
-      let swing = 0;
-      if (since < 110) {
-        const p = since / 110;                              // 0 → 1
-        const decay = Math.exp(-p * 5.5);                  // damping envelope
-        swing = Math.sin(p * Math.PI * 2.4) * decay;       // oscillates with overshoot
-      }
+      const swing = since < 170 ? Math.sin((since / 170) * Math.PI) : 0;
       const armed = !!hoverBee;
 
       ctx.save();
       ctx.translate(x, y);
-      ctx.rotate(-0.5 + swing * 0.72); // base tilt + elastic swat
+      ctx.rotate(-0.5 + swing * 0.55); // base tilt + swat dip
       const s = armed ? 1.12 : 1.0;
       ctx.scale(s, s);
 
