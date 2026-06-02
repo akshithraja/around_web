@@ -1481,10 +1481,10 @@
     }
 
     /* ── Splat sound — soft synthesized squelch ── */
-    async function playSplat() {
+    function playSplat() {
       try {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') await audioCtx.resume();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
         const t = audioCtx.currentTime;
 
         // Low pitched-down "thunk"
@@ -1848,6 +1848,11 @@
       hero.addEventListener('mousedown', e => {
         if (e.target.closest('a, button')) return; // let links/buttons work
         if (game.state === 'over') return;
+        // Safari: create + resume AudioContext synchronously inside the gesture
+        try {
+          if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          if (audioCtx.state === 'suspended') audioCtx.resume();
+        } catch(_) {}
         lastSwingT = performance.now();
         if (hoverBee) killBee(hoverBee);
       });
