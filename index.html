@@ -302,12 +302,8 @@
     .go-title { font-size: 32px; font-weight: 700; letter-spacing: -1px; margin-bottom: 10px; }
     .go-score { font-size: 14px; color: var(--medium-gray); margin-bottom: 24px; }
     .go-score b { color: var(--purple-bright); font-size: 22px; font-weight: 700; }
-    .go-again {
-      background: var(--purple); color: #fff; border: none;
-      padding: 12px 30px; border-radius: 100px; font-size: 14px; font-weight: 700;
-      font-family: inherit; cursor: pointer; transition: background 0.2s, box-shadow 0.2s;
-    }
-    .go-again:hover { background: var(--purple-bright); box-shadow: 0 0 24px var(--purple-mid); }
+    .game-over.show { cursor: pointer; }
+    .go-card { cursor: default; }
 
     /* ─── SECTION SHARED ──────────────────────────────── */
     section { padding: 100px 24px; }
@@ -784,9 +780,8 @@
 
     <div class="game-over" id="game-over">
       <div class="go-card">
-        <div class="go-title">Time! 🐝</div>
-        <div class="go-score">Unfulfilled Bee Souls: <b id="go-count">0</b></div>
-        <button class="go-again" id="go-again">Swat again</button>
+        <div class="go-title">Game Over</div>
+        <div class="go-score">Unfulfilled Souls: <b id="go-count">0</b></div>
       </div>
     </div>
 
@@ -1466,17 +1461,6 @@
       if (go) go.classList.add('show');
     }
 
-    function resetGame() {
-      bees = []; hoverBee = null; spawnAccum = 0;
-      game.score = 0;
-      const go = document.getElementById('game-over');
-      if (go) go.classList.remove('show');
-      updateHud();
-      startGame();
-      const b = makeBee({ difficulty: difficulty() });
-      if (b) bees.push(b);
-    }
-
     /* ── HUD ── */
     function updateHud() {
       const el = document.getElementById('hud-count');
@@ -1868,8 +1852,13 @@
         if (hoverBee) killBee(hoverBee);
       });
 
-      const again = document.getElementById('go-again');
-      if (again) again.addEventListener('click', resetGame);
+      // Click outside the card to dismiss the Game Over overlay
+      const goOverlay = document.getElementById('game-over');
+      if (goOverlay) {
+        goOverlay.addEventListener('click', e => {
+          if (!e.target.closest('.go-card')) goOverlay.classList.remove('show');
+        });
+      }
     }
 
     setup();
