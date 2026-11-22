@@ -177,7 +177,7 @@
       50% { opacity:0.5; transform:scale(0.8); }
     }
 
-    /* AroundBee title — characters revealed one by one */
+    /* aroundbee title — characters revealed one by one */
     .hero-title {
       font-size: clamp(64px, 10vw, 120px);
       font-weight: 700;
@@ -1011,7 +1011,7 @@
       initEntities();
       if (!introStarted) {
         introStarted = true;
-        // First load — wait for AroundBee text to fully form (~2.2s), then spawn the first bee
+        // First load — wait for aroundbee text to fully form (~2.2s), then spawn the first bee
         setTimeout(() => {
           const titleEl = document.getElementById('hero-title');
           const chars   = titleEl ? titleEl.querySelectorAll('.char') : [];
@@ -1945,7 +1945,7 @@
   ────────────────────────────────────────── */
   (function () {
     const titleEl = document.getElementById('hero-title');
-    const text    = 'AroundBee';
+    const text    = 'aroundbee';
     const purple  = [6, 7, 8]; // indices of B,e,e
 
     text.split('').forEach((char, i) => {
