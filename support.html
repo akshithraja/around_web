@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Support · AroundBee</title>
-  <meta name="description" content="Get help with the AroundBee app — how to reach us, and answers to common questions." />
+  <title>Support · Aroundbee</title>
+  <meta name="description" content="Get help with the Aroundbee app — how to reach us, and answers to common questions." />
   <link rel="icon" href="aroundbee-mark.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,7 +13,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --black: #000000; --medium-gray: #8b8ba0; --light-gray: #e8e8f0;
-      --white: #ffffff; --purple-bright: #E8AA2A; --glass-border: rgba(255,255,255,0.10);
+      --white: #ffffff; --brand-yellow: #F0E959; --glass-border: rgba(255,255,255,0.10);
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Space Grotesk', sans-serif; background: var(--black); color: var(--white); -webkit-font-smoothing: antialiased; }
@@ -25,9 +25,9 @@
       backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
       border-bottom: 1px solid var(--glass-border);
     }
-    .nav-logo { display: flex; align-items: center; gap: 5px; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: var(--white); text-decoration: none; }
-    .nav-logo img { height: 22px; width: auto; display: block; }
-    .nav-logo .bee { color: var(--purple-bright); }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .brand .mark { height: 26px; width: auto; display: block; }
+    .brand .word { height: 19px; width: auto; display: block; }
     .nav-back { color: var(--medium-gray); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
     .nav-back:hover { color: var(--white); }
 
@@ -39,15 +39,14 @@
     .legal p, .legal li { color: var(--light-gray); font-size: 15px; line-height: 1.75; margin-bottom: 14px; }
     .legal ul { padding-left: 22px; margin-bottom: 14px; }
     .legal li { margin-bottom: 8px; }
-    .legal a { color: var(--purple-bright); text-decoration: none; }
+    .legal a { color: var(--brand-yellow); text-decoration: none; }
     .legal a:hover { text-decoration: underline; }
     .legal strong { color: var(--white); }
 
     footer { border-top: 1px solid rgba(255,255,255,0.05); padding: 48px 24px; }
     .footer-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; }
-    .footer-logo { display: flex; align-items: center; gap: 5px; font-size: 18px; font-weight: 700; color: var(--white); text-decoration: none; }
-    .footer-logo img { height: 18px; width: auto; display: block; }
-    .footer-logo .bee { color: var(--purple-bright); }
+    footer .brand .mark { height: 21px; }
+    footer .brand .word { height: 15px; }
     .footer-copy { font-size: 13px; color: #555; }
     .footer-links { display: flex; gap: 24px; }
     .footer-links a { font-size: 12px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
@@ -64,13 +63,13 @@
 <body>
 
   <nav>
-    <a href="/" class="nav-logo"><img src="aroundbee-mark.svg" alt="AroundBee mark" /><span>Around<span class="bee">Bee</span></span></a>
+    <a href="/" class="brand"><img class="mark" src="aroundbee-mark.svg" alt="" /><img class="word" src="aroundbee-wordmark.svg" alt="aroundbee" /></a>
     <a href="/" class="nav-back">← Back to home</a>
   </nav>
 
   <main class="legal">
     <h1>Support</h1>
-    <p class="updated">Help with the AroundBee app.</p>
+    <p class="updated">Help with the Aroundbee app.</p>
 
     <h2>Getting in touch</h2>
     <p>Email us at <a href="mailto:support@aroundbee.com"><strong>support@aroundbee.com</strong></a>. We reply within <strong>2 business days</strong>.</p>
@@ -79,34 +78,40 @@
     <h2>Common questions</h2>
 
     <h3>I don't see any trails or spots near me</h3>
-    <p>Around is location-based, and we're currently live in Bengaluru. Tap the location at the top of the <strong>Trails</strong> or <strong>Spots</strong> tab and choose Bengaluru to see what's there. Choosing <strong>Your location</strong> switches back to wherever you are. And if your area really is empty — post one yourself and be the first Bee around you.</p>
+    <p>Aroundbee is location-based and works wherever you are. Most posts right now are in Bengaluru, so if your area is quiet, tap the location at the top of the <strong>Trails</strong> or <strong>Spots</strong> tab and choose Bengaluru to see what's there. Choosing <strong>Your location</strong> switches back to wherever you are. And if your area really is empty — post one yourself and be the first Bee around you.</p>
+
+    <h3>How are Top rated places picked?</h3>
+    <p>Top rated places and food on Home come from Google Maps for the area you're in. Only your area is sent to us; sorting by distance happens on your phone, so your exact location isn't used to pick the list.</p>
 
     <h3>I didn't get my verification code</h3>
-    <p>Around currently supports Indian mobile numbers only. Enter your 10-digit number without the +91, which is already filled in. Codes arrive by SMS and can take a minute — if nothing arrives, wait a few minutes before requesting another, then write to us.</p>
+    <p>Aroundbee currently supports Indian mobile numbers only. Enter your 10-digit number without the +91, which is already filled in. Codes arrive by SMS and can take a minute — if nothing arrives, wait a few minutes before requesting another, then write to us.</p>
 
     <h3>My upload didn't finish</h3>
     <p>Photos and videos upload while you're in the app, so stay on the screen until publishing completes. Leaving the app or losing your connection partway can interrupt the upload, and you may need to create the post again. If you need to stop, tap <strong>Save draft</strong> first — drafts are saved when you choose to save them, not automatically.</p>
 
     <h3>Making a post private</h3>
-    <p>Each trail and spot has a <strong>Visibility</strong> setting when you publish. Private posts are only visible to you; shared ones only to the people you share them with.</p>
+    <p>Each trail and spot has a <strong>Visibility</strong> setting when you publish. <strong>Public</strong> posts can be seen by everyone on Aroundbee. <strong>Private</strong> posts are only visible to you and the people you give access to. You can pick those people while publishing with <strong>Share with people</strong>, or later from the <strong>⋯</strong> menu on the post in your profile → <strong>Access</strong>.</p>
+
+    <h3>Following people</h3>
+    <p>Tap <strong>Follow</strong> on someone's profile to see their new public trails and spots in your Following feed. There's no approval step. To unfollow, tap <strong>Following</strong>, then <strong>Unfollow</strong>. Only you can see who you follow and who follows you; others see just the counts. There's a daily limit on how many people you can follow.</p>
 
     <h3>Reporting content or blocking someone</h3>
-    <p>Every trail, spot and profile has a <strong>⋯</strong> menu with <strong>Report</strong> and <strong>Block</strong>. Blocking hides that person's posts from you and stops them messaging you. Manage who you've blocked in <strong>Settings → Privacy → Blocked Users</strong>. Reports go to our moderation team.</p>
+    <p>Every trail, spot and profile has a <strong>⋯</strong> menu with <strong>Report</strong> and <strong>Block</strong>. Blocking hides that person's posts from you, stops them messaging you, and removes any follow between you. Manage who you've blocked in <strong>Settings → Account settings → Privacy → Blocked users</strong>. Reports go to our moderation team.</p>
 
     <h3>Too many notifications</h3>
-    <p><strong>Settings → Notifications</strong> has three separate switches: <strong>Social</strong> (messages, follows, likes and saves), <strong>New around you</strong> (new trails and spots nearby), and <strong>Reminders &amp; nudges</strong>.</p>
+    <p><strong>Settings → Account settings → Notifications</strong> has four separate switches: <strong>Social</strong> (messages, follows, likes and saves), <strong>Following</strong> (new trails and spots from people you follow), <strong>New around you</strong> (new trails and spots nearby), and <strong>Reminders &amp; nudges</strong>.</p>
 
     <h3>Deleting your account</h3>
-    <p><strong>Profile → Settings → Account → Delete Account</strong>. You'll confirm by typing "delete", then verify your phone number with a code. This permanently deletes your account and your data.</p>
+    <p><strong>Profile → Settings → Account settings → Delete account</strong>. You can tell us why you're leaving if you'd like (it's optional), then verify your phone number with a 6-digit code. This permanently deletes your account and your data, and it can't be undone.</p>
 
     <h3>Privacy and your data</h3>
-    <p>To request a copy of your data or raise a privacy concern, email <a href="mailto:support@aroundbee.com">support@aroundbee.com</a>. Grievance Officer: <strong>Akshith Raja P</strong>. See the <a href="/privacy.html">Privacy Policy</a> for how we handle your information.</p>
+    <p>To request a copy of your data or raise a privacy concern, email <a href="mailto:support@aroundbee.com">support@aroundbee.com</a>. You can also switch off usage analytics at any time in <strong>Settings → Account settings → Privacy → Share usage analytics</strong>, or by emailing us. Analytics is never sold or used for ads, and switching it off doesn't affect crash reports. Grievance Officer: <strong>Akshith Raja P</strong>. See the <a href="/privacy.html">Privacy Policy</a> for how we handle your information.</p>
   </main>
 
   <footer>
     <div class="footer-inner">
-      <a href="/" class="footer-logo"><img src="aroundbee-mark.svg" alt="AroundBee mark" /><span>Around<span class="bee">Bee</span></span></a>
-      <div class="footer-copy">© 2026 AroundBee. All rights reserved.</div>
+      <a href="/" class="brand"><img class="mark" src="aroundbee-mark.svg" alt="" /><img class="word" src="aroundbee-wordmark.svg" alt="aroundbee" /></a>
+      <div class="footer-copy">© 2026 Aroundbee. All rights reserved.</div>
       <div class="footer-links">
         <a href="/privacy.html">Privacy Policy</a>
         <a href="/terms.html">Terms of Service</a>
